@@ -1,0 +1,22 @@
+{
+  "name": "Góc Lặng — Nhật ký",
+  "short_name": "Góc Lặng",
+  "description": "Nơi để suy nghĩ được đặt xuống: nhật ký cảm xúc, biết ơn và xả suy nghĩ.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f3ec",
+  "theme_color": "#5f7f6b",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Viết nhật ký", "url": "./?new=journal", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Xả suy nghĩ", "url": "./?new=dump", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

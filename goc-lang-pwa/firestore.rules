@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Danh sách tài khoản được phép dùng app — sửa cho khớp với allowedEmails trong firebase-config.js
+    function allowed() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in ['vincenthoclaudepro@gmail.com', 'TAI-KHOAN-THU-HAI@gmail.com'];
+    }
+
+    // Mỗi tài khoản chỉ đọc/ghi được nhật ký của chính mình
+    match /users/{uid}/{document=**} {
+      allow read, write: if allowed() && request.auth.uid == uid;
+    }
+  }
+}
