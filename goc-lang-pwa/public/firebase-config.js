@@ -4,12 +4,12 @@
 window.GOCLANG_CONFIG = {
   // Dán đoạn firebaseConfig từ Firebase Console → Project settings → Your apps → Web app
   firebase: {
-    apiKey: "AIzaSyA1qdIlN4kddtmSg6RfLm20uzL43Z9YvXA",
-  authDomain: "goc-c0274.firebaseapp.com",
-  projectId: "goc-c0274",
-  storageBucket: "goc-c0274.firebasestorage.app",
-  messagingSenderId: "383118532979",
-  appId: "1:383118532979:web:a8961ec8bab57cf6ed2506"
+    apiKey: "",
+    authDomain: "",          // nên đặt là "<project-id>.web.app" (xem hướng dẫn, mục 4)
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
   },
   // OAuth Client ID loại "Web application" (Google Cloud Console → APIs & Services → Credentials)
   // Dùng cho nút "Sao lưu lên Google Drive". Để trống thì ẩn tính năng này.
