@@ -1,0 +1,1283 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Góc Lặng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f3ec; --surface:#fffdf8; --surface-2:#f1ebe0; --text:#2f2a24; --muted:#7a7066;
+  --line:#e4dccf; --accent:#5f7f6b; --accent-soft:#e3ece5; --accent-text:#fff;
+  --warn:#b5654a; --shadow:0 1px 2px rgba(60,45,30,.06),0 4px 16px rgba(60,45,30,.05);
+  --m1:#b86b5e; --m2:#c99a62; --m3:#a9a294; --m4:#7fa38a; --m5:#4f8a78;
+  --serif:'Lora',Georgia,'Times New Roman',serif;
+  --sans:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1a18; --surface:#242220; --surface-2:#2d2a27; --text:#ebe5dc; --muted:#a39a8f;
+    --line:#3a3632; --accent:#8db59b; --accent-soft:#2c3a31; --accent-text:#14201a;
+    --warn:#e0917a; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1a18; --surface:#242220; --surface-2:#2d2a27; --text:#ebe5dc; --muted:#a39a8f;
+  --line:#3a3632; --accent:#8db59b; --accent-soft:#2c3a31; --accent-text:#14201a;
+  --warn:#e0917a; --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit;color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 96px}
+header.top{display:flex;align-items:center;justify-content:space-between;padding:20px 0 8px}
+.brand{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.2px}
+.brand small{display:block;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--muted);letter-spacing:0}
+nav.tabs{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;gap:4px;padding:8px 0 12px;overflow-x:auto;border-bottom:1px solid var(--line);margin-bottom:24px}
+nav.tabs button{border:0;background:none;padding:8px 14px;border-radius:999px;color:var(--muted);cursor:pointer;white-space:nowrap}
+nav.tabs button.on{background:var(--accent-soft);color:var(--text);font-weight:500}
+h1{font-family:var(--serif);font-weight:600;font-size:28px;line-height:1.3;margin:0 0 4px}
+h2{font-family:var(--serif);font-weight:600;font-size:20px;margin:0 0 12px}
+h3{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}
+.muted{color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(2,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:600px){.g4{grid-template-columns:repeat(2,1fr)}}
+.quick{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:16px;text-align:left;cursor:pointer;transition:border-color .15s,transform .15s}
+.quick:hover{border-color:var(--accent);transform:translateY(-1px)}
+.quick b{display:block;font-weight:600;margin-top:6px}
+.quick span{font-size:13px;color:var(--muted)}
+.quick .ic{font-size:22px;color:var(--accent)}
+.stat{font-family:var(--serif);font-size:32px;font-weight:600;line-height:1}
+.prompt{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.5}
+.btn{border:1px solid var(--line);background:var(--surface);padding:9px 16px;border-radius:10px;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-text);font-weight:500}
+.btn.ghost{border-color:transparent;background:none;color:var(--muted)}
+.btn.danger{color:var(--warn)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.spread{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:14px;cursor:pointer}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-text)}
+label.f{display:block;font-size:14px;font-weight:500;margin:18px 0 6px}
+label.f .hint{font-weight:400;color:var(--muted)}
+input[type=text],input[type=search],textarea{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;outline:none}
+input:focus,textarea:focus{border-color:var(--accent)}
+textarea{font-family:var(--serif);font-size:17px;line-height:1.7;resize:vertical;min-height:120px}
+textarea.big{min-height:240px}
+.moods{display:flex;gap:8px;flex-wrap:wrap}
+.mood{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:8px 10px;cursor:pointer;text-align:center;min-width:72px}
+.mood .e{font-size:24px;display:block;line-height:1.2}
+.mood small{font-size:12px;color:var(--muted)}
+.mood.on{border-color:var(--accent);background:var(--accent-soft)}
+.entry{border-top:1px solid var(--line);padding:16px 0}
+.entry:first-child{border-top:0;padding-top:0}
+.entry .meta{font-size:13px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tag{display:inline-block;font-size:12px;background:var(--surface-2);border-radius:6px;padding:1px 8px;color:var(--muted)}
+.type{font-size:12px;font-weight:600;border-radius:6px;padding:1px 8px;background:var(--accent-soft);color:var(--text)}
+.entry h4{font-family:var(--serif);font-size:18px;margin:6px 0 4px;font-weight:600}
+.body{font-family:var(--serif);font-size:16.5px;white-space:pre-wrap;word-wrap:break-word}
+.clip{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.qa{margin:8px 0 0;padding-left:12px;border-left:2px solid var(--line)}
+.qa div{margin-bottom:6px}
+.qa b{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--muted);display:block}
+.released{font-size:12px;color:var(--accent);font-weight:500}
+.day{font-size:13px;font-weight:600;color:var(--muted);margin:24px 0 8px;text-transform:capitalize}
+.empty{text-align:center;padding:40px 16px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:20}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.notice{background:var(--surface-2);border-radius:10px;padding:12px 14px;font-size:14px}
+.bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px}
+.guide{background:var(--surface-2);border-radius:12px;padding:4px 16px 16px;margin-top:16px}
+details summary{cursor:pointer;font-weight:500;padding:12px 0}
+.check{display:flex;gap:10px;align-items:flex-start;margin-top:16px;cursor:pointer}
+.check input{margin-top:5px;accent-color:var(--accent)}
+svg text{fill:var(--muted);font-size:19px;font-family:var(--sans)}
+.hidden{display:none!important}
+.gr-item{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.gr-item span{font-family:var(--serif);color:var(--muted);width:18px}
+
+/* ================= Chuyển động ================= */
+:root{--orb1:#cfe0d3;--orb2:#f1d9c4;--orb3:#e2dbee;--pot:#c98f6b;--ease:cubic-bezier(.2,.8,.2,1);--spring:cubic-bezier(.34,1.56,.64,1)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--orb1:#2f4a3a;--orb2:#4a3628;--orb3:#3a3448;--pot:#9a6a4e}}
+:root[data-theme="dark"]{--orb1:#2f4a3a;--orb2:#4a3628;--orb3:#3a3448;--pot:#9a6a4e}
+body{transition:background-color .5s,color .5s}
+.card,.quick,.chip,.mood,.btn,input,textarea{transition:background-color .3s,border-color .3s,color .3s,transform .25s var(--ease),box-shadow .3s}
+.wrap{position:relative;z-index:1}
+.ambient{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.ambient i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;transition:background-color 1.6s ease}
+.ambient i:nth-child(1){width:46vmax;height:46vmax;top:-14vmax;left:-12vmax;background:var(--tint,var(--orb1));animation:drift1 32s ease-in-out infinite alternate}
+.ambient i:nth-child(2){width:38vmax;height:38vmax;bottom:-12vmax;right:-10vmax;background:var(--orb2);animation:drift2 38s ease-in-out infinite alternate}
+.ambient i:nth-child(3){width:28vmax;height:28vmax;top:40%;left:55%;background:var(--orb3);animation:drift3 44s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(12vmax,10vmax) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-10vmax,-8vmax) scale(1.2)}}
+@keyframes drift3{to{transform:translate(-18vmax,6vmax) scale(.85)}}
+
+/* tab pill trượt */
+nav.tabs{position:sticky}
+nav.tabs .pill{position:absolute;left:0;top:0;border-radius:999px;background:var(--accent-soft);transition:transform .45s var(--spring),width .45s var(--spring);z-index:0}
+nav.tabs button{position:relative;z-index:1;transition:color .3s}
+nav.tabs button.on{background:none}
+
+/* vào trang */
+.view-in>*{animation:rise .55s var(--ease) both}
+.view-in>*:nth-child(2){animation-delay:.05s}.view-in>*:nth-child(3){animation-delay:.1s}.view-in>*:nth-child(4){animation-delay:.15s}
+.view-in>*:nth-child(5){animation-delay:.2s}.view-in>*:nth-child(6){animation-delay:.25s}.view-in>*:nth-child(n+7){animation-delay:.3s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.quick:hover{box-shadow:0 8px 24px rgba(60,45,30,.08)}
+.quick:hover .ic{animation:bob .9s var(--ease)}
+@keyframes bob{30%{transform:translateY(-4px) rotate(-8deg)}60%{transform:translateY(1px) rotate(4deg)}}
+.quick .ic{display:inline-block}
+.btn:active,.chip:active,.mood:active,.quick:active{transform:scale(.96)}
+.entry{transition:background-color .3s}
+.entry.out{animation:out .35s var(--ease) forwards}
+@keyframes out{to{opacity:0;transform:translateX(24px);height:0;padding:0;margin:0}}
+
+/* tiêu đề + bầu trời */
+.hello{display:flex;align-items:center;gap:14px}
+.sky{width:48px;height:48px;flex:none}
+.sky .rays{transform-origin:24px 24px;animation:spin 40s linear infinite}
+.sky .sun{animation:glow 4s ease-in-out infinite alternate}
+.sky .star{animation:twinkle 2.4s ease-in-out infinite}
+.sky .star:nth-of-type(2){animation-delay:.8s}.sky .star:nth-of-type(3){animation-delay:1.6s}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes glow{to{filter:drop-shadow(0 0 6px #f0b860)}}
+@keyframes twinkle{50%{opacity:.2;transform:scale(.6)}}
+.sky .star{transform-box:fill-box;transform-origin:center}
+.prompt .w{display:inline-block;animation:wordIn .6s var(--ease) both}
+@keyframes wordIn{from{opacity:0;transform:translateY(6px);filter:blur(4px)}}
+
+/* khu vườn */
+.garden{display:flex;flex-direction:column;align-items:center;text-align:center}
+.garden svg{width:120px;height:140px;overflow:visible}
+.plant{transform-origin:60px 104px;animation:sway 5s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+.plant .stem{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.2s var(--ease) .2s forwards}
+.plant .leaf,.plant .bloom{transform-box:fill-box;animation:pop .7s var(--spring) both}
+.plant .leaf.r{transform-origin:left center}.plant .leaf.l{transform-origin:right center}.plant .bloom{transform-origin:center}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{from{transform:scale(0);opacity:0}}
+.bloom-spin{transform-box:fill-box;transform-origin:center;animation:spin 30s linear infinite}
+
+/* tâm trạng */
+.mood.on .e{animation:moodPop .5s var(--spring)}
+@keyframes moodPop{40%{transform:scale(1.45) rotate(-10deg)}}
+.chip.pop{animation:chipPop .35s var(--spring)}
+@keyframes chipPop{50%{transform:scale(1.12)}}
+textarea:focus,input[type=text]:focus,input[type=search]:focus{box-shadow:0 0 0 4px var(--accent-soft)}
+.wc{font-size:12px;color:var(--muted);text-align:right;margin-top:4px;font-variant-numeric:tabular-nums}
+
+/* biểu đồ */
+.draw-line{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.6s var(--ease) .2s forwards}
+.dot-in{transform-box:fill-box;transform-origin:center;animation:pop .5s var(--spring) both}
+.bar i{transform-origin:left;animation:barIn 1s var(--ease) both}
+@keyframes barIn{from{transform:scaleX(0)}}
+
+/* lớp hiệu ứng */
+#fx{position:fixed;inset:0;pointer-events:none;z-index:30;overflow:hidden}
+.petal{position:absolute;top:-24px;width:12px;height:16px;border-radius:14px 0 14px 0;opacity:.9;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--r));opacity:.25}}
+.spark{position:absolute;width:7px;height:7px;border-radius:50%;animation:spark .8s var(--ease) forwards}
+@keyframes spark{to{transform:translate(var(--tx),var(--ty)) scale(.2);opacity:0}}
+
+.overlay{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:16px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:fadeIn .4s ease both}
+.overlay.closing{animation:fadeOut .5s ease forwards}
+@keyframes fadeIn{from{opacity:0}}@keyframes fadeOut{to{opacity:0}}
+.release-box{position:relative;width:min(420px,100%);text-align:center}
+.cloud{background:var(--surface);border:1px solid var(--line);border-radius:48px;padding:28px 32px;font-family:var(--serif);font-size:17px;color:var(--muted);box-shadow:0 10px 40px rgba(60,45,30,.1);animation:floatAway 2.8s cubic-bezier(.5,0,.75,0) .6s forwards}
+@keyframes floatAway{15%{transform:scale(.94)}100%{transform:translateY(-75vh) scale(.4);opacity:0;filter:blur(12px)}}
+.mote{position:absolute;bottom:20%;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:0;animation:moteUp 2.6s ease-out forwards}
+@keyframes moteUp{10%{opacity:.8}100%{transform:translate(var(--dx),-60vh);opacity:0}}
+.release-msg{position:absolute;inset:0;display:grid;place-content:center;font-family:var(--serif);font-size:24px;opacity:0;animation:rise 1s var(--ease) 2.2s forwards}
+.release-msg small{display:block;font-size:16px;color:var(--muted);margin-top:6px;font-family:var(--sans)}
+
+.breathe{text-align:center;width:min(360px,100%)}
+.ring{position:relative;width:240px;height:240px;margin:0 auto 24px;display:grid;place-items:center}
+.ring .c{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 40% 35%,var(--orb1),var(--accent));opacity:.85;transform:scale(.5);transition-property:transform;transition-timing-function:ease-in-out}
+.ring .halo{position:absolute;inset:-10px;border-radius:50%;border:2px solid var(--accent);opacity:.25;animation:halo 4s ease-in-out infinite}
+@keyframes halo{50%{transform:scale(1.06);opacity:.1}}
+.ring span{position:relative;font-family:var(--serif);font-size:22px;color:var(--text);transition:opacity .4s}
+.toast{transition:opacity .3s,transform .45s var(--spring)}
+
+/* khoá PIN */
+.overlay.lock{background:var(--bg);z-index:50}
+body.locked .wrap{visibility:hidden}
+.pin-box{width:min(320px,100%);text-align:center}
+.pin-ic{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent);animation:pop .6s var(--spring) both}
+.pin-box h2{margin:0 0 4px}
+.dots{display:flex;gap:14px;justify-content:center;margin:20px 0 24px;min-height:16px}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--muted);transition:background-color .2s,border-color .2s,transform .25s var(--spring)}
+.dots i.on{background:var(--accent);border-color:var(--accent);transform:scale(1.15)}
+.dots.shake{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.pad{display:grid;grid-template-columns:repeat(3,68px);gap:14px;justify-content:center}
+.pad button{width:68px;height:68px;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:24px;cursor:pointer;transition:transform .15s,background-color .2s}
+.pad button:active{transform:scale(.9);background:var(--accent-soft)}
+.pad button[data-x]{font-size:20px;color:var(--muted)}
+.pin-err{color:var(--warn)!important}
+
+/* lịch cảm xúc */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal .h{font-size:12px;color:var(--muted);text-align:center;font-weight:500;padding-bottom:2px}
+.cal .d{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;font-size:13px;border:2px solid transparent;background:var(--surface-2);color:var(--muted);animation:pop .4s var(--spring) both;transition:transform .2s var(--spring)}
+.cal .d.has{cursor:pointer;color:#fff;font-weight:600}
+.cal .d.nomood{background:var(--accent-soft);color:var(--text)}
+.cal .d.today{border-color:var(--text)}
+.cal .d.blank{background:none;animation:none}
+.cal .d.has:hover{transform:scale(1.1)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:14px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.memory{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:none;padding:12px 0;cursor:pointer}
+.memory:first-of-type{border-top:0;padding-top:0}
+.memory small{display:block;font-size:12px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.memory span{font-family:var(--serif);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* nhìn lại nỗi lo */
+.worry-quote{font-family:var(--serif);font-size:17px;border-left:3px solid var(--m2);padding:4px 0 4px 14px;margin:10px 0 16px;white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.outcomes{display:grid;gap:8px}
+.outcome{display:flex;gap:12px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;cursor:pointer;width:100%}
+.outcome:hover{border-color:var(--accent)}
+.outcome .e{font-size:22px}
+.oc{font-size:12px;border-radius:6px;padding:1px 8px;background:var(--surface-2);color:var(--text)}
+.stack{display:flex;height:14px;border-radius:7px;overflow:hidden;gap:2px;margin:12px 0}
+.stack i{display:block;height:100%;animation:barIn 1s var(--ease) both;transform-origin:left}
+.ab-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.ab-dot.on{background:var(--m5);box-shadow:0 0 0 0 var(--m5);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 7px transparent}}
+
+/* hình nền thời tiết */
+.skytint{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 2.2s ease}
+#wxc{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
+.wx-on .ambient{opacity:.45}
+.wx-dim header.top,.wx-dim .hello,.wx-dim #view>h1{color:#f6f0e4;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.wx-dim header.top small,.wx-dim .hello .muted{color:rgba(246,240,228,.78)}
+.wx-dim header.top .btn.ghost{color:#f6f0e4}
+.header-top,header.top{transition:color 1.5s}
+.card,.quick{background:color-mix(in srgb,var(--surface) 84%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2)}
+.wx-card{border-color:color-mix(in srgb,var(--line) 70%,transparent)}
+.wx-temp{font-family:var(--serif);font-size:44px;line-height:1;font-weight:600;letter-spacing:-1px}
+.wx-line{font-family:var(--serif);font-style:italic;margin:14px 0 4px;font-size:16px}
+.wx-hours{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:12px;text-align:center}
+.wx-hours div{background:color-mix(in srgb,var(--surface-2) 80%,transparent);border-radius:12px;padding:8px 0 6px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--muted)}
+.wx-hours b{font-size:14px;color:var(--text);font-weight:600}
+.wx-hours small{font-size:11px;color:#5f8fc4}
+.wx-days{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.wx-days div{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.wx-days b{color:var(--text);font-weight:500;width:100%;padding-left:30px;margin-top:-6px}
+.wi{flex:none;overflow:visible}
+.wi-rays{transform-box:fill-box;transform-origin:center;animation:spin 24s linear infinite}
+.wi-drop{animation:wdrop 1s linear infinite}
+@keyframes wdrop{from{transform:translateY(-3px);opacity:0}30%{opacity:1}to{transform:translateY(4px);opacity:0}}
+.wi-bolt{animation:boltBlink 3s steps(1) infinite}
+@keyframes boltBlink{0%,8%,14%{opacity:1}5%,11%,100%{opacity:.35}}
+.wx-skel{width:56px;height:56px;border-radius:50%;background:var(--surface-2);animation:halo 1.4s ease-in-out infinite}
+.meta .wi{vertical-align:-3px}
+@media (max-width:420px){.wx-temp{font-size:38px}.wx-hours{gap:4px}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  .ambient{display:none}
+}
+</style>
+</head>
+<body>
+<div class="skytint" id="skyA" aria-hidden="true"></div><div class="skytint" id="skyB" aria-hidden="true"></div>
+<div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+<canvas id="wxc" aria-hidden="true"></canvas>
+<div id="fx" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Góc Lặng<small>nơi để suy nghĩ được đặt xuống</small></div>
+    <div class="row" style="gap:0"><button class="btn ghost hidden" id="lockBtn" title="Khoá ngay" aria-label="Khoá ngay"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
+    <button class="btn ghost" id="themeBtn" title="Đổi giao diện sáng/tối" aria-label="Đổi giao diện sáng/tối"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button></div>
+  </header>
+  <nav class="tabs" id="tabs">
+    <span class="pill" id="pill"></span>
+    <button data-v="home">Hôm nay</button>
+    <button data-v="write">Viết</button>
+    <button data-v="timeline">Dòng thời gian</button>
+    <button data-v="insights">Nhìn lại</button>
+    <button data-v="settings">Cài đặt</button>
+  </nav>
+  <main id="view"></main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- Dữ liệu ---------- */
+const KEY='goclang.v1', DRAFT='goclang.draft', THEME='goclang.theme';
+const TYPES={
+  journal:{name:'Nhật ký',ic:'✎',desc:'Hôm nay thế nào?'},
+  gratitude:{name:'Biết ơn',ic:'❀',desc:'3 điều nhỏ đáng trân trọng'},
+  dump:{name:'Xả suy nghĩ',ic:'☁',desc:'Đặt những lo lắng xuống'},
+  opinion:{name:'Quan điểm',ic:'❝',desc:'Viết về một vấn đề'}
+};
+const MOODS=[
+  {v:1,e:'😣',n:'Rất tệ'},{v:2,e:'😔',n:'Buồn'},{v:3,e:'😐',n:'Bình thường'},{v:4,e:'🙂',n:'Ổn'},{v:5,e:'😊',n:'Vui'}
+];
+const FEELINGS=['lo âu','mệt mỏi','bối rối','buồn','tức giận','cô đơn','áp lực','bình yên','biết ơn','hào hứng','nhẹ nhõm','tự hào'];
+const DUMP_Q=[
+  {k:'fact',q:'Điều mình đang nghĩ là sự thật, hay chỉ là giả định?'},
+  {k:'worst',q:'Nếu điều tệ nhất xảy ra, mình vẫn có thể làm gì?'},
+  {k:'control',q:'Phần nào mình kiểm soát được? Phần nào thì không?'},
+  {k:'step',q:'Một bước nhỏ mình có thể làm ngay hôm nay là gì?'},
+  {k:'friend',q:'Nếu bạn thân đang nghĩ như vậy, mình sẽ nói gì với họ?'}
+];
+const PROMPTS=[
+  'Điều gì đang chiếm nhiều chỗ nhất trong đầu bạn lúc này?',
+  'Hôm nay có khoảnh khắc nào khiến bạn thấy nhẹ lòng?',
+  'Bạn đang lo về điều gì — và nó có thật sự cần giải quyết hôm nay không?',
+  'Ai là người bạn muốn cảm ơn tuần này, và vì sao?',
+  'Một điều bạn đã làm tốt gần đây mà chưa tự khen mình?',
+  'Nếu được buông một suy nghĩ trước khi ngủ, bạn sẽ buông điều gì?',
+  'Cơ thể bạn đang cảm thấy thế nào ngay lúc này?',
+  'Điều gì bạn từng rất lo, nhưng rồi mọi chuyện vẫn ổn?',
+  'Bạn cần gì từ chính mình hôm nay?',
+  'Một quan điểm bạn đã thay đổi trong năm nay là gì?',
+  'Điều nhỏ bé nào hôm nay bạn dễ bỏ qua nhưng đáng biết ơn?',
+  'Nếu không sợ bị đánh giá, bạn sẽ nói gì?'
+];
+
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&Array.isArray(d.entries))return d}catch(e){}return{entries:[],lastBackup:null}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(db));return true}catch(e){return false}}
+function save(){if(persist()){if(typeof abQueue==='function')abQueue();return true}toast('Không lưu được — hãy sao lưu ngay');return false}
+const snip=e=>e.title||e.body||(e.gratitude||[]).join(', ')||Object.values(e.dump||{})[0]||'';
+let db=load();
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dayKey=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
+const fmtDay=d=>new Date(d).toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const fmtTime=d=>new Date(d).toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
+const $=s=>document.querySelector(s);
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200)}
+const sorted=()=>[...db.entries].sort((a,b)=>b.createdAt-a.createdAt);
+
+function streak(){
+  const days=new Set(db.entries.map(e=>dayKey(e.createdAt)));let n=0;const d=new Date();
+  if(!days.has(dayKey(d)))d.setDate(d.getDate()-1);
+  while(days.has(dayKey(d))){n++;d.setDate(d.getDate()-1)}
+  return n;
+}
+
+/* ---------- Điều hướng ---------- */
+let view='home', editing=null, form=null;
+function go(v,opts={}){view=v;if(v==='write'){editing=opts.id||null;form=opts.form||null}render();window.scrollTo(0,0)}
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)go(b.dataset.v)});
+
+function render(){
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
+  movePill();
+  if(view!=='write')setTint(null);
+  const v=$('#view');
+  ({home:renderHome,write:renderWrite,timeline:renderTimeline,insights:renderInsights,settings:renderSettings})[view](v);
+  if(lastView!==view){v.classList.remove('view-in');void v.offsetWidth;v.classList.add('view-in');lastView=view}
+  FX.countUp(v);
+}
+let lastView=null;
+function movePill(){const b=$('#tabs button.on'),p=$('#pill');if(!b||!p)return;
+  p.style.width=b.offsetWidth+'px';p.style.height=b.offsetHeight+'px';p.style.transform=`translate(${b.offsetLeft}px,${b.offsetTop}px)`;
+  const n=$('#tabs');if(b.offsetLeft+b.offsetWidth>n.scrollLeft+n.clientWidth||b.offsetLeft<n.scrollLeft)n.scrollTo({left:b.offsetLeft-16,behavior:RM?'auto':'smooth'})}
+addEventListener('resize',movePill);
+if(document.fonts)document.fonts.ready.then(movePill);
+function setTint(m){const r=document.documentElement;m?r.style.setProperty('--tint',`var(--m${m})`):r.style.removeProperty('--tint')}
+
+/* ---------- Hiệu ứng ---------- */
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FX={
+  add(el,life){$('#fx').appendChild(el);setTimeout(()=>el.remove(),life)},
+  petals(n=34){if(RM)return;const cols=['var(--m1)','var(--m2)','var(--m4)','#e9b7b0','#f2d49b'];
+    for(let i=0;i<n;i++){const p=document.createElement('i');p.className='petal';const d=2.8+Math.random()*2.4,del=Math.random()*.9;
+      Object.assign(p.style,{left:Math.random()*100+'vw',background:cols[i%cols.length],animationDuration:d+'s',animationDelay:del+'s'});
+      p.style.setProperty('--dx',(Math.random()*200-100)+'px');p.style.setProperty('--r',(Math.random()*720-360)+'deg');
+      this.add(p,(d+del)*1000+100)}},
+  burst(el,n=14){if(RM||!el)return;const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    for(let i=0;i<n;i++){const s=document.createElement('i');s.className='spark';const a=i/n*Math.PI*2,d=40+Math.random()*40;
+      Object.assign(s.style,{left:cx+'px',top:cy+'px',background:i%2?'var(--accent)':'var(--m2)'});
+      s.style.setProperty('--tx',Math.cos(a)*d+'px');s.style.setProperty('--ty',Math.sin(a)*d+'px');this.add(s,900)}},
+  release(text){
+    const o=document.createElement('div');o.className='overlay';
+    const t=text.length>160?text.slice(0,160)+'…':text;
+    o.innerHTML=`<div class="release-box"><div class="cloud">${esc(t)}</div><p class="release-msg">Đã đặt xuống.<small>Bạn nhẹ hơn rồi đấy.</small></p></div>`;
+    const box=o.firstElementChild;
+    if(!RM)for(let i=0;i<18;i++){const m=document.createElement('i');m.className='mote';
+      Object.assign(m.style,{left:(10+Math.random()*80)+'%',animationDelay:(.8+Math.random()*1.2)+'s',width:(3+Math.random()*5)+'px'});
+      m.style.height=m.style.width;m.style.setProperty('--dx',(Math.random()*120-60)+'px');box.appendChild(m)}
+    document.body.appendChild(o);
+    const close=()=>{o.classList.add('closing');setTimeout(()=>o.remove(),500)};
+    o.onclick=close;setTimeout(close,RM?1500:4400)},
+  countUp(root){root.querySelectorAll('[data-n]').forEach(el=>{const n=+el.dataset.n;if(RM||n===0){el.textContent=n;return}
+    const t0=performance.now(),d=Math.min(1200,400+n*60);
+    const step=t=>{const k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);el.textContent=Math.round(n*e);if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)})}
+};
+
+/* ---------- Thở ---------- */
+function breathe(){
+  const o=document.createElement('div');o.className='overlay';
+  o.innerHTML=`<div class="breathe"><div class="ring"><div class="halo"></div><div class="c" id="bc"></div><span id="bl">Sẵn sàng…</span></div>
+    <p class="muted" id="bn" style="min-height:26px">Hít vào bằng mũi, thở ra thật chậm.</p>
+    <div class="row" style="justify-content:center"><button class="btn" id="bx">Dừng lại</button></div></div>`;
+  document.body.appendChild(o);
+  const c=o.querySelector('#bc'),l=o.querySelector('#bl'),n=o.querySelector('#bn');
+  const P=[['Hít vào',4000,1],['Giữ',4000,1],['Thở ra',6000,.5]];let i=0,cyc=0,alive=true,tm;
+  const step=()=>{if(!alive)return;const[lab,ms,sc]=P[i];
+    l.style.opacity=0;setTimeout(()=>{l.textContent=lab;l.style.opacity=1},200);
+    c.style.transitionDuration=ms+'ms';c.style.transform=`scale(${sc})`;
+    tm=setTimeout(()=>{i=(i+1)%P.length;if(i===0){cyc++;n.textContent=`${cyc} nhịp thở`;
+      if(cyc>=5){alive=false;l.textContent='Tốt lắm';n.textContent='Đầu óc đã lắng xuống một chút. Viết ra nhé?';
+        o.querySelector('.row').innerHTML='<button class="btn" id="bx">Để sau</button><button class="btn primary" id="bw">Viết ngay</button>';
+        o.querySelector('#bx').onclick=close;o.querySelector('#bw').onclick=()=>{close();go('write',{form:{type:'dump'}})};return}}
+      step()},ms)};
+  const close=()=>{alive=false;clearTimeout(tm);o.classList.add('closing');setTimeout(()=>o.remove(),500)};
+  o.querySelector('#bx').onclick=close;
+  setTimeout(step,900);
+}
+
+/* ---------- Hôm nay ---------- */
+function renderHome(v){
+  const h=new Date().getHours();
+  const greet=h<11?'Chào buổi sáng':h<14?'Chào buổi trưa':h<18?'Chào buổi chiều':'Chào buổi tối';
+  const today=sorted().filter(e=>dayKey(e.createdAt)===dayKey(Date.now()));
+  const p=PROMPTS[Math.floor(Date.now()/864e5)%PROMPTS.length];
+  const needBackup=AB.status!=='on'&&AB.status!=='paused'&&db.entries.length>0&&(!db.lastBackup||Date.now()-db.lastBackup>7*864e5);
+  const due=dueWorries(),mem=memories();
+  const released=db.entries.filter(e=>e.released).length;
+  v.innerHTML=`
+    <div class="hello">${WXD.data&&wxEnabled()?wxIcon(WXD.data.current.weather_code,WXD.data.current.is_day,48,'sky'):sky(h)}<div><h1>${greet}.</h1>
+    <p class="muted" style="margin:0;text-transform:capitalize">${fmtDay(Date.now())}</p></div></div>
+    <div style="height:24px"></div>
+    ${wxEnabled()?`<div class="card wx-card" id="wxCard">${wxCardInner()}</div>`:''}
+    ${AB.status==='paused'?`<div class="notice spread" style="margin-bottom:16px"><span><span class="ab-dot" style="background:var(--m2)"></span>Tự động sao lưu vào “${esc(AB.handle.name)}” đang tạm dừng.</span><button class="btn" id="abResume">Bật lại</button></div>`:''}
+    ${needBackup?`<div class="notice" style="margin-bottom:16px">Đã hơn 7 ngày chưa sao lưu. Dữ liệu chỉ nằm trong trình duyệt này — <a href="#" data-go="settings" style="color:var(--accent)">sao lưu ngay</a>.</div>`:''}
+    <div class="grid g4" style="margin-bottom:16px">
+      ${Object.entries(TYPES).map(([k,t])=>`<button class="quick" data-new="${k}"><span class="ic">${t.ic}</span><b>${t.name}</b><span>${t.desc}</span></button>`).join('')}
+    </div>
+    ${due.length?`<div class="card" id="follow" style="border-color:var(--m2)">${followHTML(due[0],due.length)}</div>`:''}
+    <div class="card">
+      <h3>Câu hỏi hôm nay</h3>
+      <p class="prompt" style="margin:0 0 14px">${p.split(' ').map((w,i)=>`<span class="w" style="animation-delay:${.25+i*.05}s">${w}</span>`).join(' ')}</p>
+      <button class="btn" data-prompt>Viết về điều này</button>
+    </div>
+    ${mem.length?`<div class="card"><h3>Ngày này năm xưa</h3>${mem.map(x=>{const mo=MOODS.find(z=>z.v===x.e.mood);return`<button class="memory" data-day="${x.k}"><small>${x.lab}${mo?' · '+mo.e:''}${x.n>1?` · ${x.n} bài`:''}</small><span>${esc(snip(x.e))}</span></button>`}).join('')}</div>`:''}
+    <div class="card spread" style="flex-wrap:nowrap">
+      <div><h3>Đầu óc đang quay cuồng?</h3><p style="margin:0" class="muted">Thở chậm 1 phút cùng mình trước khi viết.</p></div>
+      <button class="btn primary" id="breatheBtn" style="flex:none">Thở cùng mình</button>
+    </div>
+    <div class="grid g2" style="margin-bottom:16px">
+      <div class="card garden" style="margin:0">${garden()}</div>
+      <div class="grid" style="gap:12px">
+        <div class="card" style="margin:0"><h3>Chuỗi ngày viết</h3><div class="stat" data-n="${streak()}">0</div><span class="muted" style="font-size:14px">ngày liên tiếp</span></div>
+        <div class="card" style="margin:0"><h3>Đã buông xuống</h3><div class="stat" data-n="${released}">0</div><span class="muted" style="font-size:14px">suy nghĩ được đặt xuống</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Hôm nay bạn đã viết</h3>
+      ${today.length?today.map(entryHTML).join(''):`<p class="muted" style="margin:0">Chưa có gì. Không cần viết hay — chỉ cần viết thật.</p>`}
+    </div>`;
+  v.querySelectorAll('[data-new]').forEach(b=>b.onclick=()=>go('write',{form:{type:b.dataset.new}}));
+  $('#breatheBtn').onclick=breathe;
+  const wc=$('#wxCard');if(wc)bindWxCard(wc);
+  if(due.length)bindFollow($('#follow'),due[0],()=>render());
+  v.querySelectorAll('.memory').forEach(b=>b.onclick=()=>{tf={q:'',type:'all',tag:null,day:b.dataset.day};go('timeline')});
+  const ar=$('#abResume');if(ar)ar.onclick=abResume;
+  v.querySelector('[data-prompt]').onclick=()=>go('write',{form:{type:'journal',title:p}});
+  v.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();go(a.dataset.go)});
+  bindEntryActions(v);
+}
+
+function sky(h){
+  if(h>=5&&h<18)return`<svg class="sky" viewBox="0 0 48 48" aria-hidden="true"><g class="rays" stroke="#e8a94a" stroke-width="2.5" stroke-linecap="round">
+    ${[0,45,90,135,180,225,270,315].map(a=>`<line x1="24" y1="4" x2="24" y2="9" transform="rotate(${a} 24 24)"/>`).join('')}</g>
+    <circle class="sun" cx="24" cy="24" r="10" fill="#f2bb5c"/></svg>`;
+  return`<svg class="sky" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a16 16 0 1 0 10 26A13 13 0 0 1 30 8z" fill="#e9dcb4"/>
+    <circle class="star" cx="8" cy="10" r="1.8" fill="#e9dcb4"/><circle class="star" cx="42" cy="8" r="1.4" fill="#e9dcb4"/><circle class="star" cx="40" cy="42" r="1.6" fill="#e9dcb4"/></svg>`;
+}
+const STAGES=[[0,'Một hạt mầm đang chờ'],[1,'Mầm non vừa nhú'],[3,'Cây đang lớn'],[7,'Cây xanh tốt'],[14,'Sắp nở hoa'],[30,'Cây đã nở hoa']];
+function garden(){
+  const D=new Set(db.entries.map(e=>dayKey(e.createdAt))).size;
+  let st=0;STAGES.forEach(([n],i)=>{if(D>=n)st=i});
+  const next=STAGES[st+1];
+  const H=[0,22,42,58,72,78][st],top=104-H;
+  const leaf=(y,side,sz,d)=>{const k=side==='r'?1:-1;return`<path class="leaf ${side}" style="animation-delay:${d}s" d="M60 ${y} q ${12*k*sz} ${-12*sz} ${26*k*sz} ${-4*sz} q ${-10*k*sz} ${12*sz} ${-26*k*sz} ${4*sz}z" fill="var(--m4)"/>`};
+  let parts='';
+  if(st>=1)parts+=`<path class="stem" pathLength="1" d="M60 104 Q ${st>2?57:60} ${104-H/2} 60 ${top}" stroke="var(--m5)" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+  if(st>=1)parts+=leaf(top+4,'r',.6,.9)+leaf(top+4,'l',.6,1);
+  if(st>=2)parts+=leaf(92,'r',.9,.7)+leaf(88,'l',.85,.8);
+  if(st>=3)parts+=leaf(74,'l',1,.6)+leaf(70,'r',1,.65);
+  if(st===4)parts+=`<ellipse class="bloom" style="animation-delay:1.1s" cx="60" cy="${top-4}" rx="5" ry="7" fill="var(--m1)"/>`;
+  if(st>=5)parts+=`<g class="bloom" style="animation-delay:1.1s"><g class="bloom-spin">${[0,60,120,180,240,300].map(a=>`<ellipse cx="60" cy="${top-11}" rx="5" ry="9" fill="#e9a99b" transform="rotate(${a} 60 ${top-4})"/>`).join('')}</g><circle cx="60" cy="${top-4}" r="5" fill="#f2bb5c"/></g>`;
+  const seed=st===0?`<ellipse cx="60" cy="102" rx="4" ry="3" fill="var(--pot)"/>`:'';
+  return`<h3 style="align-self:stretch;text-align:left">Khu vườn của bạn</h3>
+    <svg viewBox="0 0 120 140" role="img" aria-label="${STAGES[st][1]}"><g class="plant">${parts}</g>${seed}
+      <path d="M36 104h48l-6 32H42z" fill="var(--pot)"/><rect x="33" y="100" width="54" height="8" rx="3" fill="var(--pot)" opacity=".85"/></svg>
+    <b style="font-size:14px;margin-top:6px">${STAGES[st][1]}</b>
+    <span class="muted" style="font-size:12px">${D} ngày đã viết${next?` · còn ${next[0]-D} ngày để lớn tiếp`:''}</span>`;
+}
+
+/* ---------- Viết ---------- */
+function blankForm(type='journal'){return{type,mood:null,feelings:[],title:'',body:'',gratitude:['','',''],dump:{},tags:'',released:false}}
+function renderWrite(v){
+  if(!form){
+    if(editing){const e=db.entries.find(x=>x.id===editing);form={...blankForm(e.type),...JSON.parse(JSON.stringify(e)),tags:(e.tags||[]).join(', ')}}
+    else{let d=null;try{d=JSON.parse(localStorage.getItem(DRAFT))}catch(e){}form=d||blankForm()}
+  }else if(!form.feelings){form={...blankForm(form.type),...form}}
+  const f=form,t=f.type;
+  v.innerHTML=`
+    <div class="spread" style="margin-bottom:8px"><h1>${editing?'Sửa bài viết':'Viết'}</h1>
+      ${editing?'':`<span class="muted" style="font-size:13px" id="draftNote"></span>`}</div>
+    <div class="seg" style="margin-bottom:8px">
+      ${Object.entries(TYPES).map(([k,x])=>`<button class="chip ${k===t?'on':''}" data-type="${k}">${x.ic} ${x.name}</button>`).join('')}
+    </div>
+    <div class="card" style="margin-top:16px">
+      <label class="f" style="margin-top:0">Bạn đang cảm thấy thế nào? <span class="hint">(không bắt buộc)</span></label>
+      <div class="moods">${MOODS.map(m=>`<button class="mood ${f.mood===m.v?'on':''}" data-mood="${m.v}"><span class="e">${m.e}</span><small>${m.n}</small></button>`).join('')}</div>
+      <label class="f">Gọi tên cảm xúc <span class="hint">— gọi tên được là đã nhẹ đi một nửa</span></label>
+      <div class="seg">${FEELINGS.map(x=>`<button class="chip ${f.feelings.includes(x)?'on':''}" data-feel="${x}">${x}</button>`).join('')}</div>
+
+      ${t==='gratitude'?`
+        <label class="f">Hôm nay mình biết ơn…</label>
+        ${f.gratitude.map((g,i)=>`<div class="gr-item"><span>${i+1}.</span><input type="text" data-gr="${i}" value="${esc(g)}" placeholder="${['Một người…','Một khoảnh khắc…','Một điều nhỏ bé…'][i]||'Thêm một điều…'}"></div>`).join('')}
+        <button class="btn ghost" id="addGr">+ Thêm điều biết ơn</button>
+        <label class="f">Vì sao những điều này có ý nghĩa? <span class="hint">(không bắt buộc)</span></label>
+        <textarea data-k="body" placeholder="Viết thêm nếu muốn…">${esc(f.body)}</textarea>
+      `:''}
+
+      ${t==='journal'?`
+        <label class="f">Tiêu đề <span class="hint">(không bắt buộc)</span></label>
+        <input type="text" data-k="title" value="${esc(f.title)}" placeholder="Một ngày…">
+        <label class="f">Hôm nay thế nào?</label>
+        <textarea class="big" data-k="body" data-count placeholder="Cứ viết như đang kể cho một người bạn…">${esc(f.body)}</textarea><div class="wc" data-wc></div>
+      `:''}
+
+      ${t==='opinion'?`
+        <label class="f">Vấn đề / chủ đề</label>
+        <input type="text" data-k="title" value="${esc(f.title)}" placeholder="VD: Về việc so sánh bản thân với người khác">
+        <label class="f">Quan điểm của mình</label>
+        <textarea class="big" data-k="body" data-count placeholder="Mình nghĩ rằng… vì… nhưng cũng có thể…">${esc(f.body)}</textarea><div class="wc" data-wc></div>
+      `:''}
+
+      ${t==='dump'?`
+        <label class="f">Xả hết ra đây <span class="hint">— không cần câu cú, không ai đọc ngoài bạn</span></label>
+        <textarea class="big" data-k="body" data-count placeholder="Mình đang nghĩ về…">${esc(f.body)}</textarea><div class="wc" data-wc></div>
+        <div class="guide">
+          <details ${DUMP_Q.some(q=>f.dump[q.k])?'open':''}>
+            <summary>Gỡ rối từng bước <span class="muted" style="font-weight:400">— khi đầu óc cứ xoay vòng</span></summary>
+            ${DUMP_Q.map(q=>`<label class="f">${q.q}</label><textarea data-dump="${q.k}" style="min-height:70px">${esc(f.dump[q.k]||'')}</textarea>`).join('')}
+          </details>
+        </div>
+        <label class="check"><input type="checkbox" id="released" ${f.released?'checked':''}><span>Mình đã viết nó ra rồi. <b>Mình cho phép bản thân đặt suy nghĩ này xuống.</b></span></label>
+      `:''}
+
+      <label class="f">Thẻ <span class="hint">(cách nhau bằng dấu phẩy)</span></label>
+      <input type="text" data-k="tags" value="${esc(f.tags)}" placeholder="công việc, gia đình, bản thân">
+      <div class="row" style="margin-top:24px;justify-content:flex-end">
+        ${editing?`<button class="btn ghost" id="cancel">Huỷ</button>`:`<button class="btn ghost" id="clear">Xoá nháp</button>`}
+        <button class="btn primary" id="saveBtn">${editing?'Lưu thay đổi':'Lưu lại'}</button>
+      </div>
+    </div>`;
+  const draft=()=>{if(!editing){try{localStorage.setItem(DRAFT,JSON.stringify(form));const n=$('#draftNote');if(n)n.textContent='Đã tự lưu nháp '+fmtTime(Date.now())}catch(e){}}};
+  v.querySelectorAll('[data-type]').forEach(b=>b.onclick=()=>{form.type=b.dataset.type;draft();render()});
+  setTint(form.mood);
+  v.querySelectorAll('[data-mood]').forEach(b=>b.onclick=()=>{const m=+b.dataset.mood;form.mood=form.mood===m?null:m;draft();setTint(form.mood);v.querySelectorAll('[data-mood]').forEach(x=>x.classList.toggle('on',+x.dataset.mood===form.mood))});
+  v.querySelectorAll('[data-feel]').forEach(b=>b.onclick=()=>{const x=b.dataset.feel,i=form.feelings.indexOf(x);i<0?form.feelings.push(x):form.feelings.splice(i,1);b.classList.toggle('on');b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');draft()});
+  const wc=()=>{const ta=v.querySelector('[data-count]'),out=v.querySelector('[data-wc]');if(!ta||!out)return;const n=ta.value.trim()?ta.value.trim().split(/\s+/).length:0;out.textContent=n?`${n} chữ`:''};
+  v.querySelectorAll('[data-k]').forEach(el=>el.oninput=()=>{form[el.dataset.k]=el.value;draft();if(el.hasAttribute('data-count'))wc()});
+  wc();
+  v.querySelectorAll('[data-gr]').forEach(el=>el.oninput=()=>{form.gratitude[+el.dataset.gr]=el.value;draft()});
+  v.querySelectorAll('[data-dump]').forEach(el=>el.oninput=()=>{form.dump[el.dataset.dump]=el.value;draft()});
+  const addGr=$('#addGr');if(addGr)addGr.onclick=()=>{form.gratitude.push('');render()};
+  const rel=$('#released');if(rel)rel.onchange=()=>{form.released=rel.checked;draft()};
+  const clr=$('#clear');if(clr)clr.onclick=()=>{try{localStorage.removeItem(DRAFT)}catch(e){}form=blankForm(form.type);render()};
+  const cc=$('#cancel');if(cc)cc.onclick=()=>{form=null;editing=null;go('timeline')};
+  $('#saveBtn').onclick=saveEntry;
+}
+function saveEntry(){
+  const f=form;
+  const gr=(f.gratitude||[]).map(s=>s.trim()).filter(Boolean);
+  const dump={};Object.entries(f.dump||{}).forEach(([k,x])=>{if(x&&x.trim())dump[k]=x.trim()});
+  const has=(f.body||'').trim()||(f.title||'').trim()||gr.length||Object.keys(dump).length;
+  if(!has){toast('Viết một chút gì đó trước đã nhé');return}
+  const entry={
+    type:f.type,mood:f.mood||null,feelings:f.feelings||[],title:(f.title||'').trim(),body:(f.body||'').trim(),
+    gratitude:f.type==='gratitude'?gr:[],dump:f.type==='dump'?dump:{},released:f.type==='dump'&&!!f.released,
+    tags:(f.tags||'').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean)
+  };
+  if(!editing&&WXD.data){const c=WXD.data.current;entry.weather={c:c.weather_code,t:Math.round(c.temperature_2m),d:c.is_day,p:(wxLoc()||WX_DEFAULT).name}}
+  if(editing){const e=db.entries.find(x=>x.id===editing);Object.assign(e,entry,{updatedAt:Date.now()})}
+  else db.entries.push({id:uid(),createdAt:Date.now(),updatedAt:Date.now(),...entry});
+  const wasEditing=!!editing;
+  if(save()){
+    if(!editing)try{localStorage.removeItem(DRAFT)}catch(e){}
+    const btn=$('#saveBtn');
+    if(entry.released&&!wasEditing)FX.release(entry.body||Object.values(entry.dump)[0]||'');
+    else if(entry.type==='gratitude'&&!wasEditing){FX.petals();toast('Cảm ơn vì đã trân trọng những điều nhỏ bé')}
+    else{FX.burst(btn);toast('Đã lưu lại')}
+    form=null;editing=null;go('home');
+  }
+}
+
+/* ---------- Hiển thị bài ---------- */
+function entryHTML(e,full){
+  const m=MOODS.find(x=>x.v===e.mood);
+  let content='';
+  if(e.type==='gratitude'&&e.gratitude.length)content+=`<div class="body">${e.gratitude.map((g,i)=>`${i+1}. ${esc(g)}`).join('\n')}</div>`;
+  if(e.body)content+=`<div class="body ${full?'':'clip'}" style="${e.gratitude&&e.gratitude.length?'margin-top:8px':''}">${esc(e.body)}</div>`;
+  if(full&&e.type==='dump'&&Object.keys(e.dump||{}).length)content+=`<div class="qa">${DUMP_Q.filter(q=>e.dump[q.k]).map(q=>`<div><b>${q.q}</b><span class="body">${esc(e.dump[q.k])}</span></div>`).join('')}</div>`;
+  if(full&&e.outcome&&e.outcome.note)content+=`<div class="qa" style="margin-top:10px"><div><b>Điều mình muốn nhắc bản thân</b><span class="body">${esc(e.outcome.note)}</span></div></div>`;
+  const canFollow=e.type==='dump'&&!(e.outcome&&e.outcome.result)&&daysAgo(e.createdAt)>=1;
+  return `<div class="entry" data-id="${e.id}">
+    <div class="meta"><span class="type">${TYPES[e.type].ic} ${TYPES[e.type].name}</span><span>${fmtTime(e.createdAt)}</span>
+      ${e.weather?`<span title="${esc((WMO[e.weather.c]||'')+(e.weather.p?' · '+e.weather.p:''))}">${wxIcon(e.weather.c,e.weather.d,18)} ${e.weather.t}°</span>`:''}
+      ${m?`<span title="${m.n}">${m.e}</span>`:''}
+      ${e.feelings&&e.feelings.length?`<span>${e.feelings.map(esc).join(' · ')}</span>`:''}
+      ${e.released?`<span class="released">✓ đã buông</span>`:''}
+      ${e.outcome&&e.outcome.result?`<span class="oc">${OUTCOMES[e.outcome.result].e} ${OUTCOMES[e.outcome.result].n}</span>`:''}</div>
+    ${e.title?`<h4>${esc(e.title)}</h4>`:''}
+    <div style="margin-top:6px">${content}</div>
+    <div class="row" style="margin-top:8px">
+      ${(e.tags||[]).map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}
+      <span style="flex:1"></span>
+      ${canFollow?`<button class="btn ghost" data-act="follow" style="padding:4px 8px;font-size:13px;color:var(--accent)">Nhìn lại</button>`:''}
+      ${full?'':`<button class="btn ghost" data-act="open" style="padding:4px 8px;font-size:13px">Xem đủ</button>`}
+      <button class="btn ghost" data-act="edit" style="padding:4px 8px;font-size:13px">Sửa</button>
+      <button class="btn ghost danger" data-act="del" style="padding:4px 8px;font-size:13px">Xoá</button>
+    </div></div>`;
+}
+function bindEntryActions(root){
+  root.querySelectorAll('.entry').forEach(el=>{
+    const id=el.dataset.id;
+    el.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>{
+      const a=b.dataset.act;
+      if(a==='edit')go('write',{id});
+      if(a==='follow')openFollow(db.entries.find(x=>x.id===id));
+      if(a==='del'&&confirm('Xoá bài viết này? Không thể hoàn tác.')){db.entries=db.entries.filter(x=>x.id!==id);save();toast('Đã xoá');el.classList.add('out');setTimeout(render,RM?0:350)}
+      if(a==='open'){const e=db.entries.find(x=>x.id===id);const tmp=document.createElement('div');tmp.innerHTML=entryHTML(e,true);const n=tmp.firstElementChild;el.replaceWith(n);bindEntryActions(n.parentNode)}
+    });
+  });
+}
+
+/* ---------- Dòng thời gian ---------- */
+let tf={q:'',type:'all',tag:null,day:null};
+function renderTimeline(v){
+  const tags=[...new Set(db.entries.flatMap(e=>e.tags||[]))].sort();
+  v.innerHTML=`<h1 style="margin-bottom:16px">Dòng thời gian</h1>
+    <input type="search" id="q" placeholder="Tìm trong nhật ký…" value="${esc(tf.q)}">
+    <div class="seg" style="margin-top:12px">
+      <button class="chip ${tf.type==='all'?'on':''}" data-t="all">Tất cả</button>
+      ${Object.entries(TYPES).map(([k,x])=>`<button class="chip ${tf.type===k?'on':''}" data-t="${k}">${x.ic} ${x.name}</button>`).join('')}
+    </div>
+    ${tags.length?`<div class="seg" style="margin-top:8px">${tags.map(t=>`<button class="chip ${tf.tag===t?'on':''}" data-tag="${esc(t)}" style="font-size:13px">#${esc(t)}</button>`).join('')}</div>`:''}
+    ${tf.day?`<div class="seg" style="margin-top:8px"><button class="chip on" id="clearDay">Ngày ${new Date(tf.day+'T12:00').toLocaleDateString('vi-VN')} ✕</button></div>`:''}
+    <div id="list"></div>`;
+  const cd=$('#clearDay');if(cd)cd.onclick=()=>{tf.day=null;renderTimeline(v)};
+  const draw=()=>{
+    const q=tf.q.toLowerCase();
+    const list=sorted().filter(e=>(tf.type==='all'||e.type===tf.type)&&(!tf.tag||(e.tags||[]).includes(tf.tag))&&(!tf.day||dayKey(e.createdAt)===tf.day)&&
+      (!q||[e.title,e.body,...(e.gratitude||[]),...Object.values(e.dump||{}),...(e.tags||[]),...(e.feelings||[])].join(' ').toLowerCase().includes(q)));
+    const L=$('#list');
+    if(!list.length){L.innerHTML=`<div class="empty">${db.entries.length?'Không tìm thấy bài nào.':'Chưa có bài viết nào. Bắt đầu từ tab “Viết”.'}</div>`;return}
+    let html='',cur='',open=false;
+    list.forEach(e=>{const k=dayKey(e.createdAt);if(k!==cur){if(open)html+='</div>';html+=`<div class="day">${fmtDay(e.createdAt)}</div><div class="card">`;cur=k;open=true}html+=entryHTML(e)});
+    if(open)html+='</div>';L.innerHTML=html;bindEntryActions(L);
+  };
+  $('#q').oninput=e=>{tf.q=e.target.value;draw()};
+  v.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tf.type=b.dataset.t;renderTimeline(v)});
+  v.querySelectorAll('[data-tag]').forEach(b=>b.onclick=()=>{tf.tag=tf.tag===b.dataset.tag?null:b.dataset.tag;renderTimeline(v)});
+  draw();
+}
+
+/* ---------- Nhìn lại ---------- */
+function renderInsights(v){
+  const E=db.entries;
+  if(!E.length){v.innerHTML=`<h1>Nhìn lại</h1><div class="empty">Viết vài ngày, rồi quay lại đây để thấy bức tranh cảm xúc của bạn.</div>`;return}
+  // mood 30 ngày
+  const days=[];for(let i=29;i>=0;i--){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-i);days.push(d)}
+  const pts=days.map(d=>{const ms=E.filter(e=>e.mood&&dayKey(e.createdAt)===dayKey(d)).map(e=>e.mood);return ms.length?ms.reduce((a,b)=>a+b)/ms.length:null});
+  const W=600,H=260,pl=34,pr=16,pt=14,pb=36,x=i=>pl+i*(W-pl-pr)/29,y=m=>pt+(5-m)*(H-pt-pb)/4;
+  let path='',seg=false;pts.forEach((m,i)=>{if(m==null){seg=false;return}path+=(seg?'L':'M')+x(i).toFixed(1)+' '+y(m).toFixed(1)+' ';seg=true});
+  const moodColor=m=>`var(--m${Math.round(m)})`;
+  const chart=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Tâm trạng 30 ngày qua">
+    ${[1,2,3,4,5].map(m=>`<line x1="${pl}" x2="${W-pr}" y1="${y(m)}" y2="${y(m)}" stroke="var(--line)" stroke-width="1"/><text x="${pl-10}" y="${y(m)+6}" text-anchor="end">${m}</text>`).join('')}
+    <path class="draw-line" pathLength="1" d="${path}" fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pts.map((m,i)=>m==null?'':`<circle class="dot-in" style="animation-delay:${.3+i*.045}s" cx="${x(i)}" cy="${y(m)}" r="8" fill="${moodColor(m)}" stroke="var(--surface)" stroke-width="3"><title>${days[i].toLocaleDateString('vi-VN')}: ${m.toFixed(1)} — ${MOODS[Math.round(m)-1].n}</title></circle>`).join('')}
+    ${[0,7,14,21,29].map(i=>`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${days[i].getDate()}/${days[i].getMonth()+1}</text>`).join('')}
+  </svg>`;
+  const moodN=MOODS.map(m=>E.filter(e=>e.mood===m.v).length),mx=Math.max(1,...moodN);
+  const feelC={};E.forEach(e=>(e.feelings||[]).forEach(f=>feelC[f]=(feelC[f]||0)+1));
+  const feelTop=Object.entries(feelC).sort((a,b)=>b[1]-a[1]).slice(0,6),fmx=Math.max(1,...feelTop.map(f=>f[1]));
+  const tagC={};E.forEach(e=>(e.tags||[]).forEach(t=>tagC[t]=(tagC[t]||0)+1));
+  const tagTop=Object.entries(tagC).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const dumps=E.filter(e=>e.type==='dump'),rel=dumps.filter(e=>e.released).length;
+  const grN=E.reduce((a,e)=>a+(e.gratitude||[]).length,0);
+  const judged=dumps.filter(e=>e.outcome&&e.outcome.result),ocN={no:0,milder:0,yes:0};judged.forEach(e=>ocN[e.outcome.result]++);
+  const okPct=judged.length?Math.round((ocN.no+ocN.milder)/judged.length*100):0;
+  v.innerHTML=`<h1 style="margin-bottom:16px">Nhìn lại</h1>
+    <div class="grid g4" style="margin-bottom:16px">
+      <div class="card" style="margin:0"><h3>Bài viết</h3><div class="stat" data-n="${E.length}">0</div></div>
+      <div class="card" style="margin:0"><h3>Điều biết ơn</h3><div class="stat" data-n="${grN}">0</div></div>
+      <div class="card" style="margin:0"><h3>Lần xả</h3><div class="stat" data-n="${dumps.length}">0</div></div>
+      <div class="card" style="margin:0"><h3>Đã buông</h3><div class="stat" data-n="${rel}">0</div></div>
+    </div>
+    <div class="card" id="calBox">${calHTML()}</div>
+    <div class="card"><h3>Tâm trạng 30 ngày qua</h3>${pts.some(p=>p!=null)?chart:'<p class="muted">Chưa có bài nào gắn tâm trạng trong 30 ngày qua.</p>'}</div>
+    <div class="grid g2">
+      <div class="card"><h3>Phân bố tâm trạng</h3>
+        ${MOODS.slice().reverse().map(m=>{const n=moodN[m.v-1];return`<div style="margin-bottom:8px"><div class="spread" style="font-size:14px"><span>${m.e} ${m.n}</span><span class="muted">${n}</span></div><div class="bar"><i style="width:${n/mx*100}%;background:var(--m${m.v})"></i></div></div>`}).join('')}
+      </div>
+      <div class="card"><h3>Cảm xúc hay gặp</h3>
+        ${feelTop.length?feelTop.map(([f,n])=>`<div style="margin-bottom:8px"><div class="spread" style="font-size:14px"><span>${esc(f)}</span><span class="muted">${n}</span></div><div class="bar"><i style="width:${n/fmx*100}%;background:var(--accent)"></i></div></div>`).join(''):'<p class="muted">Chưa gọi tên cảm xúc nào.</p>'}
+      </div>
+    </div>
+    ${tagTop.length?`<div class="card"><h3>Chủ đề bạn hay nghĩ đến</h3><div class="seg">${tagTop.map(([t,n])=>`<span class="tag" style="font-size:14px;padding:4px 10px">#${esc(t)} · ${n}</span>`).join('')}</div></div>`:''}
+    ${judged.length?`<div class="card"><h3>Nỗi lo và thực tế</h3>
+      <p class="prompt" style="margin:0">Trong ${judged.length} nỗi lo bạn đã nhìn lại, <b>${okPct}%</b> không xảy ra hoặc nhẹ hơn bạn nghĩ.</p>
+      <div class="stack">${Object.keys(OUTCOMES).map(k=>ocN[k]?`<i style="flex:${ocN[k]};background:${OUTCOMES[k].c}"></i>`:'').join('')}</div>
+      <div class="legend" style="margin-top:0">${Object.entries(OUTCOMES).map(([k,o])=>`<span><i style="background:${o.c}"></i>${o.n} · ${ocN[k]}</span>`).join('')}</div>
+      <p class="muted" style="font-size:14px;margin:12px 0 0">Lần tới khi đầu óc bắt đầu xoay vòng, hãy nhớ con số này.</p></div>`
+    :dumps.length?`<div class="card"><h3>Một điều để nhớ</h3><p class="prompt" style="margin:0">Bạn đã viết ra ${dumps.length} nỗi lo và buông xuống ${rel} trong số đó. Sau ${FOLLOW_DAYS} ngày, app sẽ hỏi bạn những nỗi lo ấy có thật sự xảy ra không.</p></div>`:''}`;
+  bindCal($('#calBox'));
+}
+
+/* ---------- Sao lưu ---------- */
+function abHTML(){
+  if(AB.status==='unsupported')return`<p style="margin-top:0">Trình duyệt này chưa hỗ trợ ghi thẳng vào thư mục (Safari và Firefox chưa có tính năng này).</p>
+    <p class="muted" style="font-size:14px;margin-bottom:0">Hãy mở file nhat-ky.html bằng <b>Google Chrome</b> hoặc <b>Microsoft Edge</b> để dùng tính năng này. Trong lúc đó, nút “Tải bản sao lưu” ở trên vẫn dùng được.</p>`;
+  if(AB.status==='off')return`<p style="margin-top:0">Chọn một thư mục (ví dụ App Journaling). Mỗi lần bạn lưu bài, app sẽ tự ghi bản sao lưu vào đó — kèm một bản riêng cho mỗi ngày trong thư mục con <i>sao-luu-hang-ngay</i>.</p>
+    <button class="btn primary" id="abConnect">Chọn thư mục…</button>`;
+  const nm=esc(AB.handle.name);
+  if(AB.status==='paused')return`<p style="margin-top:0"><span class="ab-dot" style="background:var(--m2)"></span>Đang tạm dừng — trình duyệt cần bạn cho phép lại quyền ghi vào “${nm}” sau mỗi lần mở app.</p>
+    <div class="row"><button class="btn primary" id="abResume2">Cho phép & bật lại</button><button class="btn ghost" id="abOff">Tắt</button></div>`;
+  return`<p style="margin-top:0"><span class="ab-dot on"></span>Đang bật · thư mục <b>${nm}</b>${AB.last?` · lần cuối ${fmtTime(AB.last)}`:''}</p>
+    ${AB.err?`<p class="pin-err" style="font-size:14px">${esc(AB.err)}</p>`:''}
+    <div class="row"><button class="btn" id="abNow">Sao lưu ngay</button><button class="btn" id="abRestore">Khôi phục từ thư mục</button><button class="btn" id="abConnect">Đổi thư mục</button><button class="btn ghost" id="abOff">Tắt</button></div>`;
+}
+function pinHTML(){
+  const P=getPin();
+  if(!P)return`<p style="margin-top:0">Đặt mã PIN 4–6 số để không ai khác mở được nhật ký trên máy này.</p><button class="btn primary" id="pinSet">Đặt mã PIN</button>`;
+  return`<p style="margin-top:0"><span class="ab-dot on"></span>Đang bật · bấm biểu tượng ổ khoá trên cùng để khoá ngay.</p>
+    <label class="f" style="margin-top:0">Tự khoá khi không dùng</label>
+    <div class="seg" style="margin-bottom:16px">${[[1,'1 phút'],[5,'5 phút'],[15,'15 phút'],[0,'Không tự khoá']].map(([k,n])=>`<button class="chip ${P.idle===k?'on':''}" data-idle="${k}">${n}</button>`).join('')}</div>
+    <div class="row"><button class="btn" id="pinChange">Đổi mã PIN</button><button class="btn ghost danger" id="pinOff">Tắt khoá</button></div>
+    <p class="muted" style="font-size:13px;margin-bottom:0">Mã PIN giúp che nhật ký khỏi người dùng chung máy. Nếu quên mã, bạn sẽ phải xoá dữ liệu rồi khôi phục từ bản sao lưu.</p>`;
+}
+function renderSettings(v){
+  v.innerHTML=`<h1 style="margin-bottom:16px">Sao lưu & cài đặt</h1>
+    <div class="card"><h3>Dữ liệu của bạn</h3>
+      <p style="margin-top:0">Nhật ký được lưu <b>ngay trong trình duyệt</b> trên máy này, không gửi đi đâu cả. Nhưng nếu xoá dữ liệu duyệt web hoặc đổi trình duyệt, bài viết sẽ mất — hãy tải bản sao lưu định kỳ và cất vào thư mục App Journaling.</p>
+      <p class="muted" style="font-size:14px">${db.entries.length} bài viết · Sao lưu gần nhất: ${db.lastBackup?fmtDay(db.lastBackup)+' '+fmtTime(db.lastBackup):'chưa bao giờ'}</p>
+      <div class="row"><button class="btn primary" id="exp">Tải bản sao lưu (.json)</button>
+      <label class="btn" style="cursor:pointer">Khôi phục từ file…<input type="file" id="imp" accept=".json,application/json" class="hidden"></label>
+      <button class="btn" id="md">Xuất ra Markdown</button></div>
+    </div>
+    <div class="card" id="wxSet"><h3>Hình nền thời tiết</h3>${wxSettingsHTML()}</div>
+    <div class="card" id="abCard"><h3>Tự động sao lưu vào thư mục</h3>${abHTML()}</div>
+    <div class="card" id="pinCard"><h3>Khoá bằng mã PIN</h3>${pinHTML()}</div>
+    <div class="card"><h3>Giao diện</h3>
+      <div class="seg">${[['auto','Theo hệ thống'],['light','Sáng'],['dark','Tối']].map(([k,n])=>`<button class="chip ${(getTheme()||'auto')===k?'on':''}" data-th="${k}">${n}</button>`).join('')}</div>
+    </div>
+    <div class="card"><h3>Vùng nguy hiểm</h3>
+      <button class="btn danger" id="wipe">Xoá toàn bộ nhật ký</button></div>`;
+  const dl=(name,text,type)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
+  $('#exp').onclick=()=>{db.lastBackup=Date.now();save();dl(`goc-lang-${dayKey(Date.now())}.json`,JSON.stringify(db,null,2),'application/json');toast('Đã tải bản sao lưu');renderSettings(v)};
+  $('#md').onclick=()=>{
+    const md=sorted().map(e=>{let s=`## ${fmtDay(e.createdAt)} ${fmtTime(e.createdAt)} — ${TYPES[e.type].name}${e.title?': '+e.title:''}\n`;
+      const m=MOODS.find(x=>x.v===e.mood);if(m||e.feelings.length)s+=`*${[m?m.n:null,...(e.feelings||[])].filter(Boolean).join(', ')}*\n`;
+      if(e.gratitude.length)s+='\n'+e.gratitude.map((g,i)=>`${i+1}. ${g}`).join('\n')+'\n';
+      if(e.body)s+='\n'+e.body+'\n';
+      DUMP_Q.forEach(q=>{if(e.dump&&e.dump[q.k])s+=`\n**${q.q}**\n${e.dump[q.k]}\n`});
+      if(e.released)s+='\n_✓ Đã buông xuống_\n';
+      if(e.outcome&&e.outcome.result)s+=`\n_Nhìn lại: ${OUTCOMES[e.outcome.result].n}${e.outcome.note?' — '+e.outcome.note:''}_\n`;if(e.tags.length)s+='\n'+e.tags.map(t=>'#'+t).join(' ')+'\n';return s}).join('\n---\n\n');
+    dl(`goc-lang-${dayKey(Date.now())}.md`,'# Góc Lặng\n\n'+md,'text/markdown')};
+  $('#imp').onchange=async ev=>{
+    const file=ev.target.files[0];if(!file)return;
+    try{const n=mergeData(JSON.parse(await file.text()));
+      toast(`Đã khôi phục ${n} bài mới`);renderSettings(v)}catch(e){toast('File không hợp lệ')}
+  };
+  v.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{setTheme(b.dataset.th);renderSettings(v)});
+  const on=(id,f)=>{const b=$(id);if(b)b.onclick=f};
+  const ws=$('#wxSet');const wsRe=()=>{ws.innerHTML='<h3>Hình nền thời tiết</h3>'+wxSettingsHTML();bindWxSettings(ws,wsRe)};bindWxSettings(ws,wsRe);
+  on('#abConnect',abConnect);on('#abResume2',abResume);on('#abOff',abOff);on('#abRestore',abRestore);
+  on('#abNow',async()=>{if(await abWrite()){toast('Đã sao lưu vào thư mục');renderSettings(v)}else toast('Không ghi được — thử bật lại quyền')});
+  on('#pinSet',setupPin);on('#pinChange',()=>verifyThen(setupPin));
+  on('#pinOff',()=>verifyThen(()=>{setPin(null);toast('Đã tắt khoá');render()}));
+  v.querySelectorAll('[data-idle]').forEach(b=>b.onclick=()=>{const P=getPin();P.idle=+b.dataset.idle;setPin(P);renderSettings(v)});
+  $('#wipe').onclick=()=>{if(confirm('Xoá TOÀN BỘ nhật ký? Hãy chắc rằng bạn đã sao lưu.')&&confirm('Thật sự xoá? Không thể hoàn tác.')){db={entries:[],lastBackup:null};save();toast('Đã xoá toàn bộ');renderSettings(v)}};
+}
+
+/* ---------- 1. Nhìn lại nỗi lo cũ ---------- */
+const FOLLOW_DAYS=7;
+const OUTCOMES={
+  no:{e:'🌤',n:'Không xảy ra',c:'var(--m5)',msg:'Lại thêm một nỗi lo không thành sự thật.'},
+  milder:{e:'⛅',n:'Có, nhưng nhẹ hơn mình nghĩ',c:'var(--m4)',msg:'Mọi chuyện nhẹ hơn bạn tưởng.'},
+  yes:{e:'🌧',n:'Đúng như mình lo',c:'var(--m2)',msg:'Bạn đã đi qua nó — điều đó cũng đáng ghi nhận.'}
+};
+const daysAgo=t=>Math.floor((Date.now()-t)/864e5);
+function dueWorries(){
+  return db.entries.filter(e=>e.type==='dump'&&!(e.outcome&&e.outcome.result)&&daysAgo(e.createdAt)>=FOLLOW_DAYS&&!(e.outcome&&e.outcome.snooze>Date.now()))
+    .sort((a,b)=>a.createdAt-b.createdAt);
+}
+function followHTML(e,left){
+  return `<h3>Nhìn lại nỗi lo cũ</h3>
+    <p style="margin:0" class="muted">${daysAgo(e.createdAt)} ngày trước, bạn đã lo rằng:</p>
+    <div class="worry-quote">${esc(snip(e))}</div>
+    <p style="margin:0 0 10px;font-weight:500">Rồi chuyện đó có xảy ra không?</p>
+    <div class="outcomes">${Object.entries(OUTCOMES).map(([k,o])=>`<button class="outcome" data-oc="${k}"><span class="e">${o.e}</span><span>${o.n}</span></button>`).join('')}</div>
+    <div class="spread" style="margin-top:12px"><span class="muted" style="font-size:13px">${left>1?`Còn ${left-1} nỗi lo khác đang chờ nhìn lại`:''}</span>
+    <button class="btn ghost" data-snooze style="font-size:14px">Hỏi lại sau 3 ngày</button></div>`;
+}
+function bindFollow(box,e,done){
+  box.querySelectorAll('[data-oc]').forEach(b=>b.onclick=()=>{
+    const k=b.dataset.oc,o=OUTCOMES[k];
+    box.innerHTML=`<h3>${o.e} ${o.n}</h3><p class="prompt" style="margin:0 0 12px">${o.msg}</p>
+      <label class="f" style="margin-top:0">Lần sau gặp nỗi lo giống vậy, mình muốn nhắc bản thân điều gì? <span class="hint">(không bắt buộc)</span></label>
+      <textarea id="ocNote" style="min-height:80px" placeholder="VD: Mình đã chuẩn bị tốt hơn mình nghĩ…"></textarea>
+      <div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn primary" id="ocSave">Xong</button></div>`;
+    const btn=box.querySelector('#ocSave');
+    btn.onclick=()=>{e.outcome={result:k,note:box.querySelector('#ocNote').value.trim(),at:Date.now()};save();
+      if(k==='no')FX.petals(22);else FX.burst(btn);toast(o.msg);done()};
+  });
+  const sn=box.querySelector('[data-snooze]');
+  if(sn)sn.onclick=()=>{e.outcome={snooze:Date.now()+3*864e5};save();toast('Mình sẽ hỏi lại sau 3 ngày');done()};
+}
+function openFollow(e){
+  const o=document.createElement('div');o.className='overlay';
+  o.innerHTML=`<div class="card" style="width:min(520px,100%);max-height:90vh;overflow:auto">${followHTML(e,0)}</div>`;
+  document.body.appendChild(o);
+  const close=()=>{o.classList.add('closing');setTimeout(()=>o.remove(),500)};
+  o.addEventListener('click',ev=>{if(ev.target===o)close()});
+  bindFollow(o.firstElementChild,e,()=>{close();render()});
+}
+
+/* ---------- 3. Tự động sao lưu vào thư mục ---------- */
+const AB={handle:null,status:'off',last:null,err:''};
+const FS_OK='showDirectoryPicker' in window;
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('goclang',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function idbGet(k){const d=await idb();return new Promise(res=>{const q=d.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>res(null)})}
+async function idbSet(k,v){const d=await idb();return new Promise(res=>{const t=d.transaction('kv','readwrite');v==null?t.objectStore('kv').delete(k):t.objectStore('kv').put(v,k);t.oncomplete=()=>res(true);t.onerror=()=>res(false)})}
+async function writeText(dir,name,text){const fh=await dir.getFileHandle(name,{create:true});const w=await fh.createWritable();await w.write(text);await w.close()}
+async function abInit(){
+  if(!FS_OK){AB.status='unsupported';return}
+  try{const h=await idbGet('dir');if(!h){AB.status='off';return}AB.handle=h;
+    const p=await h.queryPermission({mode:'readwrite'});AB.status=p==='granted'?'on':'paused'}catch(e){AB.status='off'}
+}
+async function abConnect(){
+  try{const h=await window.showDirectoryPicker({id:'goclang',mode:'readwrite'});AB.handle=h;await idbSet('dir',h);AB.status='on';await abWrite();toast(`Đã kết nối thư mục “${h.name}”`)}
+  catch(e){if(e.name!=='AbortError')toast('Không kết nối được thư mục')}
+  render();
+}
+async function abResume(){
+  try{const p=await AB.handle.requestPermission({mode:'readwrite'});AB.status=p==='granted'?'on':'paused';if(AB.status==='on'){await abWrite();toast('Tự động sao lưu đã bật lại')}}catch(e){}
+  render();
+}
+async function abOff(){await idbSet('dir',null);AB.handle=null;AB.status='off';toast('Đã tắt tự động sao lưu');render()}
+let abTimer=null;
+function abQueue(){if(AB.status!=='on')return;clearTimeout(abTimer);abTimer=setTimeout(abWrite,600)}
+async function abWrite(){
+  if(AB.status!=='on'||!AB.handle)return false;
+  try{
+    const now=Date.now();const snap={...db,lastBackup:now};const json=JSON.stringify(snap,null,2);
+    await writeText(AB.handle,'goc-lang-tu-dong.json',json);
+    const sub=await AB.handle.getDirectoryHandle('sao-luu-hang-ngay',{create:true});
+    await writeText(sub,`goc-lang-${dayKey(now)}.json`,json);
+    db.lastBackup=now;AB.last=now;AB.err='';persist();return true;
+  }catch(e){AB.err=e.message||String(e);if(e.name==='NotAllowedError'||e.name==='SecurityError')AB.status='paused';return false}
+}
+async function abRestore(){
+  try{const fh=await AB.handle.getFileHandle('goc-lang-tu-dong.json');const d=JSON.parse(await (await fh.getFile()).text());const n=mergeData(d);toast(`Đã khôi phục ${n} bài mới`);render()}
+  catch(e){toast('Chưa tìm thấy bản tự động sao lưu trong thư mục')}
+}
+function mergeData(d){
+  if(!d||!Array.isArray(d.entries))throw new Error('bad');
+  const ids=new Set(db.entries.map(e=>e.id));let n=0;
+  d.entries.forEach(e=>{if(e&&e.id&&TYPES[e.type]&&!ids.has(e.id)){db.entries.push({feelings:[],gratitude:[],dump:{},tags:[],...e});n++}});
+  save();return n;
+}
+
+/* ---------- 4. Khoá bằng mã PIN ---------- */
+const PINKEY='goclang.pin';
+const LOCK_SVG='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+function getPin(){try{return JSON.parse(localStorage.getItem(PINKEY))}catch(e){return null}}
+function setPin(v){try{v?localStorage.setItem(PINKEY,JSON.stringify(v)):localStorage.removeItem(PINKEY)}catch(e){}updateLockBtn()}
+async function hashPin(pin,salt){
+  const txt=salt+':'+pin;
+  if(window.crypto&&crypto.subtle){let buf=new TextEncoder().encode(txt);for(let i=0;i<2000;i++)buf=new Uint8Array(await crypto.subtle.digest('SHA-256',buf));return [...buf].map(b=>b.toString(16).padStart(2,'0')).join('')}
+  let h1=0x811c9dc5,h2=0x1234567;for(let r=0;r<2000;r++)for(let i=0;i<txt.length;i++){h1=Math.imul(h1^txt.charCodeAt(i),16777619)>>>0;h2=Math.imul(h2^h1,2246822507)>>>0}
+  return 'f'+h1.toString(16)+h2.toString(16);
+}
+async function checkPin(p){const P=getPin();return !!P&&await hashPin(p,P.salt)===P.hash}
+async function makePin(p,idle){const salt=Math.random().toString(36).slice(2)+Date.now().toString(36);return{salt,hash:await hashPin(p,salt),len:p.length,idle:idle??5}}
+
+function pinPad(o){
+  const el=document.createElement('div');el.className='overlay'+(o.lock?' lock':'');
+  el.innerHTML=`<div class="pin-box"><div class="pin-ic">${LOCK_SVG}</div><h2>${o.title}</h2><p class="muted" id="ps" style="margin:0;min-height:26px">${o.sub||''}</p>
+    <div class="dots" id="pd"></div>
+    <div class="pad">${[1,2,3,4,5,6,7,8,9].map(n=>`<button data-d="${n}">${n}</button>`).join('')}<button data-x="back" aria-label="Xoá một số">⌫</button><button data-d="0">0</button><button data-x="ok" aria-label="Xác nhận">✓</button></div>
+    <div class="row" style="justify-content:center;margin-top:16px">${o.cancel?'<button class="btn ghost" data-x="cancel">Huỷ</button>':''}${o.forgot?'<button class="btn ghost" data-x="forgot">Quên mã PIN?</button>':''}</div></div>`;
+  document.body.appendChild(el);
+  const pd=el.querySelector('#pd'),ps=el.querySelector('#ps');let v='',busy=false;
+  const dots=()=>{const n=o.len||Math.max(4,v.length);pd.innerHTML=Array.from({length:n},(_,i)=>`<i class="${i<v.length?'on':''}"></i>`).join('')};
+  const close=()=>{document.removeEventListener('keydown',key);el.classList.add('closing');setTimeout(()=>el.remove(),450)};
+  const submit=async()=>{if(busy)return;if(v.length<4){ps.textContent='Mã PIN cần 4–6 chữ số';ps.className='pin-err';return}
+    busy=true;const r=await o.submit(v);busy=false;
+    if(r===true){close();return}
+    if(r===''){v='';dots();return}
+    ps.textContent=r||'';ps.className=r?'pin-err':'muted';v='';pd.classList.remove('shake');void pd.offsetWidth;pd.classList.add('shake');dots()};
+  const press=d=>{if(busy||v.length>=6)return;v+=d;dots();if(o.len&&v.length===o.len)setTimeout(submit,120)};
+  const act=x=>{if(x==='back'){v=v.slice(0,-1);dots()}if(x==='ok')submit();if(x==='cancel'){close();o.onCancel&&o.onCancel()}if(x==='forgot')o.onForgot&&o.onForgot(close)};
+  el.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>press(b.dataset.d));
+  el.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>act(b.dataset.x));
+  const key=ev=>{if(/^[0-9]$/.test(ev.key))press(ev.key);else if(ev.key==='Backspace')act('back');else if(ev.key==='Enter')act('ok');else if(ev.key==='Escape'&&o.cancel)act('cancel')};
+  document.addEventListener('keydown',key);dots();
+  return{close,setSub:(t)=>{ps.textContent=t;ps.className='muted'}};
+}
+let locked=false,lastAct=Date.now(),fails=0,lockUntil=0;
+function lockNow(){
+  const P=getPin();if(!P||locked)return;locked=true;document.body.classList.add('locked');
+  document.querySelectorAll('.overlay:not(.lock)').forEach(x=>x.remove());
+  pinPad({lock:true,title:'Góc Lặng đang được khoá',sub:'Nhập mã PIN để mở nhật ký',len:P.len,forgot:true,
+    submit:async p=>{
+      if(Date.now()<lockUntil)return`Đợi ${Math.ceil((lockUntil-Date.now())/1000)} giây rồi thử lại nhé`;
+      if(await checkPin(p)){locked=false;fails=0;lastAct=Date.now();document.body.classList.remove('locked');render();return true}
+      if(++fails>=5){fails=0;lockUntil=Date.now()+30000;return'Sai 5 lần. Đợi 30 giây nhé.'}
+      return'Chưa đúng, thử lại nhé';
+    },
+    onForgot:close=>{
+      if(!confirm('Mã PIN không thể khôi phục. Cách duy nhất là xoá toàn bộ nhật ký trong trình duyệt này rồi khôi phục lại từ bản sao lưu (nếu có).\n\nTiếp tục?'))return;
+      if(!confirm('Xoá toàn bộ nhật ký và mã PIN? Không thể hoàn tác.'))return;
+      db={entries:[],lastBackup:null};persist();try{localStorage.removeItem(DRAFT)}catch(e){}setPin(null);
+      locked=false;document.body.classList.remove('locked');close();go('settings');toast('Đã đặt lại. Bạn có thể khôi phục từ bản sao lưu.');
+    }});
+}
+function updateLockBtn(){const b=$('#lockBtn');if(b)b.classList.toggle('hidden',!getPin())}
+['pointerdown','keydown','touchstart'].forEach(t=>addEventListener(t,()=>{if(!locked)lastAct=Date.now()},{passive:true}));
+setInterval(()=>{const P=getPin();if(P&&P.idle&&!locked&&Date.now()-lastAct>P.idle*60000)lockNow()},10000);
+document.addEventListener('visibilitychange',()=>{const P=getPin();if(document.visibilityState==='visible'&&P&&P.idle&&!locked&&Date.now()-lastAct>P.idle*60000)lockNow()});
+function setupPin(){
+  let first='';
+  const pad=pinPad({title:'Đặt mã PIN',sub:'Chọn 4–6 chữ số, rồi bấm ✓',cancel:true,submit:async p=>{
+    if(!first){first=p;pad.setSub('Nhập lại một lần nữa để xác nhận');return''}
+    if(p!==first){first='';return'Hai lần nhập không khớp — thử lại từ đầu'}
+    const old=getPin();setPin(await makePin(p,old?old.idle:5));lastAct=Date.now();toast('Đã bật khoá bằng mã PIN');render();return true}});
+}
+function verifyThen(fn){
+  const P=getPin();pinPad({title:'Nhập mã PIN hiện tại',sub:'',len:P.len,cancel:true,submit:async p=>{if(await checkPin(p)){setTimeout(fn,300);return true}return'Chưa đúng, thử lại nhé'}});
+}
+
+/* ---------- 5. Lịch cảm xúc & ngày này năm xưa ---------- */
+let calM=null;
+function calHTML(){
+  const now=new Date();if(!calM)calM=new Date(now.getFullYear(),now.getMonth(),1);
+  const y=calM.getFullYear(),m=calM.getMonth(),dim=new Date(y,m+1,0).getDate(),lead=(new Date(y,m,1).getDay()+6)%7;
+  const byDay={};db.entries.forEach(e=>{const k=dayKey(e.createdAt);(byDay[k]=byDay[k]||[]).push(e)});
+  let cells='';for(let i=0;i<lead;i++)cells+='<div class="d blank"></div>';
+  for(let d=1;d<=dim;d++){const k=dayKey(new Date(y,m,d)),es=byDay[k]||[],ms=es.filter(e=>e.mood).map(e=>e.mood);
+    const avg=ms.length?Math.round(ms.reduce((a,b)=>a+b)/ms.length):0;
+    const cls=['d',es.length?'has':'',es.length&&!avg?'nomood':'',k===dayKey(now)?'today':''].join(' ');
+    cells+=`<div class="${cls}" ${es.length?`data-day="${k}" title="${es.length} bài${avg?' · '+MOODS[avg-1].n:''}"`:''} style="${avg?`background:var(--m${avg});`:''}animation-delay:${(lead+d)*12}ms">${d}</div>`}
+  const isNow=y===now.getFullYear()&&m===now.getMonth();
+  return`<div class="spread" style="margin-bottom:12px"><h3 style="margin:0">Lịch cảm xúc</h3>
+    <div class="row" style="gap:4px"><button class="btn ghost" data-cal="-1" aria-label="Tháng trước">‹</button>
+    <b style="min-width:110px;text-align:center;font-size:15px">Tháng ${m+1}, ${y}</b>
+    <button class="btn ghost" data-cal="1" aria-label="Tháng sau" ${isNow?'disabled style="opacity:.3"':''}>›</button></div></div>
+    <div class="cal">${['T2','T3','T4','T5','T6','T7','CN'].map(h=>`<div class="h">${h}</div>`).join('')}${cells}</div>
+    <div class="legend">${MOODS.map(x=>`<span><i style="background:var(--m${x.v})"></i>${x.n}</span>`).join('')}<span><i style="background:var(--accent-soft)"></i>Không chọn tâm trạng</span></div>`;
+}
+function bindCal(box){
+  box.querySelectorAll('[data-cal]').forEach(b=>b.onclick=()=>{calM=new Date(calM.getFullYear(),calM.getMonth()+ +b.dataset.cal,1);box.innerHTML=calHTML();bindCal(box)});
+  box.querySelectorAll('[data-day]').forEach(c=>c.onclick=()=>{tf={q:'',type:'all',tag:null,day:c.dataset.day};go('timeline')});
+}
+function memories(){
+  const out=[],t=new Date();
+  const opts=[['1 tuần trước',new Date(t.getFullYear(),t.getMonth(),t.getDate()-7)],['1 tháng trước',new Date(t.getFullYear(),t.getMonth()-1,t.getDate())],
+    ['3 tháng trước',new Date(t.getFullYear(),t.getMonth()-3,t.getDate())],['1 năm trước',new Date(t.getFullYear()-1,t.getMonth(),t.getDate())]];
+  opts.forEach(([lab,d])=>{const k=dayKey(d),es=db.entries.filter(e=>dayKey(e.createdAt)===k);if(es.length)out.push({lab,k,e:es.sort((a,b)=>(b.mood||0)-(a.mood||0))[0],n:es.length})});
+  return out;
+}
+
+/* ================= Thời tiết & hình nền động ================= */
+const WXKEY='goclang.wx',WXLOC='goclang.wxloc',WXON='goclang.wxon';
+const WX_DEFAULT={name:'TP. Hồ Chí Minh',lat:10.82,lon:106.63};
+const WXD={data:null,preview:null,loading:false,err:''};
+function wxLoc(){try{return JSON.parse(localStorage.getItem(WXLOC))||null}catch(e){return null}}
+function wxSetLoc(l){try{localStorage.setItem(WXLOC,JSON.stringify(l))}catch(e){}}
+function wxEnabled(){try{return localStorage.getItem(WXON)!=='0'}catch(e){return true}}
+function wxSetEnabled(on){try{localStorage.setItem(WXON,on?'1':'0')}catch(e){}}
+const WMO={0:'Trời quang',1:'Hầu như quang đãng',2:'Có mây rải rác',3:'Nhiều mây',45:'Sương mù',48:'Sương mù',51:'Mưa phùn nhẹ',53:'Mưa phùn',55:'Mưa phùn dày',56:'Mưa phùn lạnh',57:'Mưa phùn lạnh',61:'Mưa nhỏ',63:'Mưa vừa',65:'Mưa to',66:'Mưa lạnh',67:'Mưa lạnh to',71:'Tuyết nhẹ',73:'Tuyết',75:'Tuyết dày',77:'Tuyết hạt',80:'Mưa rào nhẹ',81:'Mưa rào',82:'Mưa rào rất to',85:'Mưa tuyết',86:'Mưa tuyết to',95:'Dông',96:'Dông kèm mưa đá',99:'Dông kèm mưa đá'};
+function sceneOf(code,day){
+  if(code>=95)return{s:'storm',k:1};
+  if([65,67,82].includes(code))return{s:'rain',k:1};
+  if([63,66,81].includes(code))return{s:'rain',k:.65};
+  if([61,80].includes(code))return{s:'rain',k:.4};
+  if(code>=51&&code<=57)return{s:'rain',k:.18};
+  if(code>=71&&code<=86)return{s:'snow',k:[75,86].includes(code)?1:.5};
+  if(code===45||code===48)return{s:'fog',k:1};
+  if(code===3)return{s:day?'cloudy-day':'cloudy-night',k:1};
+  if(code===2)return{s:day?'partly-day':'partly-night',k:.5};
+  return{s:day?'clear-day':'clear-night',k:0};
+}
+const WX_LINES={
+  'clear-day':'Trời nắng đẹp — ra ngoài hít thở một chút rồi quay lại viết nhé.',
+  'partly-day':'Nắng nhẹ xen mây — một ngày dễ chịu để sống chậm lại.',
+  'cloudy-day':'Trời nhiều mây — không sao cả, cảm xúc cũng có những ngày âm u.',
+  'clear-night':'Đêm trong và yên tĩnh — thời điểm tốt để đặt những suy nghĩ xuống.',
+  'partly-night':'Đêm có mây trôi — để suy nghĩ trôi qua như mây, không cần giữ lại.',
+  'cloudy-night':'Đêm nhiều mây — cho phép mình nghỉ ngơi, mai rồi sẽ khác.',
+  'rain':'Trời đang mưa — hợp để pha một tách trà và viết chậm lại.',
+  'storm':'Ngoài trời đang giông — ở trong này an toàn, cứ viết hết ra.',
+  'fog':'Sương mù — không cần thấy hết con đường, chỉ cần bước tiếp theo.',
+  'snow':'Tuyết rơi — mọi thứ đang lặng lại, bạn cũng vậy nhé.'
+};
+const PREVIEWS=[['','Theo thời tiết thực'],['clear-day','Nắng đẹp'],['partly-day','Ít mây'],['cloudy-day','Nhiều mây'],['rain','Mưa'],['storm','Giông'],['fog','Sương mù'],['clear-night','Đêm sao'],['snow','Tuyết']];
+
+function wxIcon(code,day,size=40,cls=''){
+  const {s}=sceneOf(code,day);
+  const rays=`<g class="wi-rays" stroke="#f0b04a" stroke-width="2.2" stroke-linecap="round">${[0,45,90,135,180,225,270,315].map(a=>`<line x1="18" y1="4" x2="18" y2="7.5" transform="rotate(${a} 18 18)"/>`).join('')}</g>`;
+  const sun=`${rays}<circle cx="18" cy="18" r="7.5" fill="#f2bb5c"/>`;
+  const moon=`<path d="M21 5a12 12 0 1 0 10 19A10 10 0 0 1 21 5z" fill="#e6d7a8"/>`;
+  const cloud=(f,dx=0,dy=0)=>`<path transform="translate(${dx} ${dy})" d="M14 40h22a8 8 0 0 0 1-16 11 11 0 0 0-21-3 8 8 0 0 0-2 19z" fill="${f}"/>`;
+  const drops=n=>[16,24,32].slice(0,n).map((x,i)=>`<line class="wi-drop" style="animation-delay:${i*.33}s" x1="${x}" y1="37" x2="${x-2}" y2="43" stroke="#6b9bd1" stroke-width="2.2" stroke-linecap="round"/>`).join('');
+  let b='';
+  if(s==='clear-day')b=`<g transform="translate(6 6)">${sun}</g>`;
+  else if(s==='clear-night')b=`<g transform="translate(4 4)">${moon}</g>`;
+  else if(s==='partly-day')b=sun+cloud('#e3e7ed',4,2);
+  else if(s==='partly-night')b=moon+cloud('#b8c0cc',4,2);
+  else if(s.startsWith('cloudy'))b=cloud('#cfd5de',-4,-7)+cloud('#aab3c0',4,0);
+  else if(s==='rain')b=cloud('#9aa5b4',0,-9)+drops(3);
+  else if(s==='storm')b=cloud('#7c8696',0,-9)+`<path class="wi-bolt" d="M25 31l-6 9h5l-3 7 9-11h-5l3-5z" fill="#f2bb5c"/>`;
+  else if(s==='fog')b=cloud('#c9cfd8',0,-10)+[36,41,46].map((y,i)=>`<line x1="${8+i*3}" y1="${y}" x2="${40-i*2}" y2="${y}" stroke="#aab3c0" stroke-width="2.4" stroke-linecap="round"/>`).join('');
+  else if(s==='snow')b=cloud('#d6dce5',0,-9)+[16,24,32].map((x,i)=>`<circle class="wi-drop" style="animation-delay:${i*.4}s" cx="${x}" cy="40" r="2" fill="#9fb6d4"/>`).join('');
+  return`<svg class="wi ${cls}" width="${size}" height="${size}" viewBox="0 0 48 48" aria-hidden="true">${b}</svg>`;
+}
+
+/* ----- tải dữ liệu (Open-Meteo, miễn phí, không cần khoá) ----- */
+async function wxFetch(force){
+  const loc=wxLoc()||WX_DEFAULT;
+  try{const c=JSON.parse(localStorage.getItem(WXKEY));
+    if(c&&c.lat===loc.lat&&c.lon===loc.lon){WXD.data=c.d;if(!force&&Date.now()-c.at<30*60e3)return}}catch(e){}
+  WXD.loading=true;
+  try{
+    const u=`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,is_day,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code,precipitation_probability,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=4`;
+    const r=await fetch(u);if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();if(!d.current)throw new Error('no data');
+    WXD.data=d;WXD.err='';try{localStorage.setItem(WXKEY,JSON.stringify({at:Date.now(),lat:loc.lat,lon:loc.lon,d}))}catch(e){}
+  }catch(e){WXD.err='Chưa tải được thời tiết — cần kết nối mạng.'}
+  WXD.loading=false;
+}
+async function wxSearch(q){
+  const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=6&language=vi&format=json`);
+  const d=await r.json();return(d.results||[]).map(x=>({name:x.name,sub:[x.admin1,x.country].filter(Boolean).join(', '),lat:+x.latitude.toFixed(2),lon:+x.longitude.toFixed(2)}));
+}
+function wxGeo(){
+  return new Promise((res,rej)=>{if(!navigator.geolocation)return rej();
+    navigator.geolocation.getCurrentPosition(async p=>{const lat=+p.coords.latitude.toFixed(2),lon=+p.coords.longitude.toFixed(2);let name='Vị trí của bạn';
+      try{const r=await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=vi`);const d=await r.json();name=d.city||d.locality||d.principalSubdivision||name}catch(e){}
+      res({name,lat,lon})},rej,{timeout:10000,maximumAge:36e5})});
+}
+function wxCurrent(){
+  if(WXD.preview){const day=!WXD.preview.endsWith('night');return{s:WXD.preview,k:WXD.preview==='rain'?.7:WXD.preview==='snow'?.8:1,day,wind:12}}
+  if(WXD.data){const c=WXD.data.current;return{...sceneOf(c.weather_code,!!c.is_day),day:!!c.is_day,wind:c.wind_speed_10m||0}}
+  const h=new Date().getHours(),day=h>=6&&h<18;return{s:day?'clear-day':'clear-night',k:0,day,wind:0};
+}
+function wxApply(){if(!wxEnabled()){sceneOff();return}sceneSet(wxCurrent())}
+async function wxRefresh(force){await wxFetch(force);wxApply();refreshWxCard()}
+setInterval(()=>{if(wxEnabled()&&!document.hidden)wxRefresh(false)},10*60e3);
+
+/* ----- thẻ thời tiết ----- */
+function wxCardInner(){
+  const loc=wxLoc()||WX_DEFAULT,d=WXD.data;
+  if(!d)return WXD.loading||!WXD.err?`<div class="row" style="gap:12px"><span class="wx-skel"></span><span class="muted">Đang ngắm bầu trời ở ${esc(loc.name)}…</span></div>`
+    :`<div class="spread"><span class="muted">${WXD.err}</span><button class="btn" data-wx="retry">Thử lại</button></div>`;
+  const c=d.current,cfg=sceneOf(c.weather_code,!!c.is_day),dl=d.daily;
+  let idx=d.hourly.time.indexOf(c.time.slice(0,13)+':00');if(idx<0)idx=0;
+  const hrs=[];for(let i=idx+1;i<d.hourly.time.length&&hrs.length<6;i+=2)hrs.push(i);
+  const dayLab=(t,i)=>i===0?'Hôm nay':i===1?'Ngày mai':(w=>w[0].toUpperCase()+w.slice(1))(new Date(t+'T12:00').toLocaleDateString('vi-VN',{weekday:'long'}));
+  return`<div class="spread" style="align-items:flex-start;flex-wrap:nowrap">
+      <div class="row" style="gap:12px;flex-wrap:nowrap">${wxIcon(c.weather_code,c.is_day,56)}
+        <div><div class="wx-temp">${Math.round(c.temperature_2m)}°</div><div class="muted" style="font-size:14px">${WMO[c.weather_code]||''} · cảm giác ${Math.round(c.apparent_temperature)}°</div></div></div>
+      <div style="text-align:right;min-width:0"><button class="btn ghost" data-wx="loc" style="padding:2px 0;font-weight:600;color:var(--text)">${esc(loc.name)} ›</button>
+        <div class="muted" style="font-size:13px">↑${Math.round(dl.temperature_2m_max[0])}° ↓${Math.round(dl.temperature_2m_min[0])}°</div>
+        <div class="muted" style="font-size:13px">Mưa ${dl.precipitation_probability_max[0]??0}% · Ẩm ${c.relative_humidity_2m}%</div></div>
+    </div>
+    <p class="wx-line">${WX_LINES[cfg.s]}</p>
+    <div class="wx-hours">${hrs.map(i=>`<div><span>${d.hourly.time[i].slice(11,13)}h</span>${wxIcon(d.hourly.weather_code[i],d.hourly.is_day[i],26)}<b>${Math.round(d.hourly.temperature_2m[i])}°</b>${d.hourly.precipitation_probability[i]>=30?`<small>${d.hourly.precipitation_probability[i]}%</small>`:'<small>&nbsp;</small>'}</div>`).join('')}</div>
+    <div class="wx-days">${dl.time.slice(0,3).map((t,i)=>`<div>${wxIcon(dl.weather_code[i],1,24)}<span>${dayLab(t,i)}</span><b>${Math.round(dl.temperature_2m_min[i])}°–${Math.round(dl.temperature_2m_max[i])}°</b></div>`).join('')}</div>
+    ${WXD.err?`<p class="muted" style="font-size:12px;margin:8px 0 0">${WXD.err} Đang hiện dữ liệu lần trước.</p>`:''}`;
+}
+function bindWxCard(el){
+  el.querySelectorAll('[data-wx]').forEach(b=>b.onclick=()=>{if(b.dataset.wx==='retry'){WXD.err='';WXD.loading=true;refreshWxCard();wxRefresh(true)}else go('settings')});
+}
+function refreshWxCard(){const el=$('#wxCard');if(el){el.innerHTML=wxCardInner();bindWxCard(el)}
+  const s=$('.hello .wi.sky, .hello svg.sky');if(s&&WXD.data&&view==='home'){const c=WXD.data.current;s.outerHTML=wxIcon(c.weather_code,c.is_day,48,'sky')}}
+
+/* ----- động cơ vẽ hình nền ----- */
+const SC={on:false,raf:0,lt:0,t:0,w:0,h:0,dpr:1,cfg:null,ctx:null,rain:[],snow:[],stars:[],motes:[],clouds:[],glass:[],fog:[],flash:0,bolt:null,nextBolt:0,flick:0,shoot:null,nextShoot:0,dark:false};
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const isDarkNow=()=>getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()==='#1b1a18';
+function cloudSprite(scale,col){
+  const W=Math.round(440*scale),H=Math.round(190*scale),cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
+  const n=7+Math.floor(Math.random()*4);
+  for(let i=0;i<n;i++){const f=i/(n-1),px=W*(.16+.68*f)+rnd(-18,18)*scale,py=H*.66-Math.sin(Math.PI*f)*H*rnd(.16,.3),r=rnd(46,82)*scale;
+    const g=x.createRadialGradient(px,py,0,px,py,r);g.addColorStop(0,col(1));g.addColorStop(.55,col(.7));g.addColorStop(1,col(0));x.fillStyle=g;x.beginPath();x.arc(px,py,r,0,7);x.fill()}
+  return cv;
+}
+function newDrop(any){return{x:rnd(-150,SC.w+150),y:any?rnd(-SC.h,SC.h):rnd(-160,-20),l:rnd(14,26),v:rnd(13,20)}}
+function scResize(){
+  const c=$('#wxc');if(!c)return;SC.dpr=Math.min(devicePixelRatio||1,1.5);SC.w=innerWidth;SC.h=innerHeight;
+  c.width=Math.round(SC.w*SC.dpr);c.height=Math.round(SC.h*SC.dpr);SC.ctx=c.getContext('2d');SC.ctx.setTransform(SC.dpr,0,0,SC.dpr,0,0);
+}
+function scBuild(){
+  const{s,k,day,wind}=SC.cfg,W=SC.w,H=SC.h,area=Math.max(.45,W*H/(1280*800));SC.dark=isDarkNow();
+  Object.assign(SC,{rain:[],snow:[],stars:[],motes:[],clouds:[],glass:[],fog:[],flash:0,bolt:null,nextBolt:SC.t+2500,shoot:null,nextShoot:SC.t+rnd(4000,9000)});
+  SC.slant=Math.min(.4,(wind||0)/70)+.06;
+  if(!day&&s!=='fog'){const n=Math.round((s==='cloudy-night'?40:s.startsWith('clear')?170:90)*area);
+    for(let i=0;i<n;i++)SC.stars.push({x:rnd(0,W),y:Math.pow(Math.random(),1.4)*H*.7,r:rnd(.4,1.7),a:rnd(.35,1),sp:rnd(.0008,.003),ph:rnd(0,6.3)})}
+  if(s==='clear-day'||s==='partly-day')for(let i=0;i<Math.round(46*area);i++)SC.motes.push({x:rnd(0,W),y:rnd(0,H),r:rnd(.8,2.4),vy:rnd(-.22,-.06),vx:rnd(-.05,.12),ph:rnd(0,6.3)});
+  let nc=0,col=null,dark=SC.dark;
+  const C=(r,g,b,m=1)=>a=>`rgba(${r},${g},${b},${a*m})`;
+  if(s==='partly-day'){nc=4;col=C(255,255,255,.95)}
+  if(s==='cloudy-day'){nc=9;col=dark?C(120,128,140,.8):C(232,236,241)}
+  if(s==='partly-night'){nc=3;col=C(85,95,120,.75)}
+  if(s==='cloudy-night'){nc=8;col=C(70,80,100,.85)}
+  if(s==='rain'){nc=7;col=day&&!dark?C(150,160,176,.85):C(58,66,84,.85)}
+  if(s==='storm'){nc=9;col=day&&!dark?C(96,102,118,.9):C(42,47,62,.9)}
+  if(s==='snow'){nc=5;col=C(236,240,246)}
+  for(let i=0;i<nc;i++){const sc=rnd(.65,1.35)*Math.min(1.2,Math.max(.6,W/1100));SC.clouds.push({img:cloudSprite(sc,col),x:rnd(-300,W),y:rnd(-60,H*(s.startsWith('partly')?.32:.24)),v:rnd(.06,.2)*(s==='storm'?2.2:1),a:rnd(.55,.95)})}
+  if(s==='rain'||s==='storm'){const n=Math.round((70+430*(s==='storm'?1:k))*Math.max(.5,W/1200));for(let i=0;i<n;i++)SC.rain.push(newDrop(true));
+    if(k>=.4||s==='storm')for(let i=0;i<Math.round(14*area);i++)SC.glass.push({x:rnd(0,W),y:rnd(0,H),r:rnd(2,5.5),v:0})}
+  if(s==='snow')for(let i=0;i<Math.round((60+140*k)*area);i++)SC.snow.push({x:rnd(0,W),y:rnd(0,H),r:rnd(1,3.6),vy:rnd(.35,1.1),ph:rnd(0,6.3),sw:rnd(.3,1)});
+  if(s==='fog')for(let i=0;i<6;i++)SC.fog.push({y:rnd(H*.05,H*.95),x:rnd(-W,W*.3),v:rnd(.08,.25),w:rnd(W*.9,W*1.7),h:rnd(140,300),a:rnd(.22,.4)});
+}
+function sunPos(){return SC.w>=800?[SC.w*.86,SC.h*.08]:[SC.w*.66,30]}
+function mkBolt(){const W=SC.w,H=SC.h;const path=[];let x=rnd(W*.15,W*.85),y=0;path.push([x,y]);const end=rnd(H*.35,H*.6);
+  while(y<end){y+=rnd(18,40);x+=rnd(-28,28);path.push([x,y])}
+  const br=[];const j=Math.floor(path.length*rnd(.3,.6));let[bx,by]=path[j];br.push([bx,by]);for(let i=0;i<5;i++){by+=rnd(15,30);bx+=rnd(5,30)*(Math.random()<.5?-1:1);br.push([bx,by])}
+  return[path,br];
+}
+function scDraw(dt){
+  const c=SC.ctx;if(!c||!SC.cfg)return;const W=SC.w,H=SC.h,{s,day}=SC.cfg;SC.t+=dt*16.67;const T=SC.t;
+  c.clearRect(0,0,W,H);
+  // mặt trời
+  if(s==='clear-day'||s==='partly-day'){
+    const[sx,sy]=sunPos(),R=Math.max(W,H)*.75,str=s==='clear-day'?1:.65;
+    const g=c.createRadialGradient(sx,sy,0,sx,sy,R);g.addColorStop(0,`rgba(255,228,160,${.6*str})`);g.addColorStop(.18,`rgba(255,214,150,${.22*str})`);g.addColorStop(.55,`rgba(255,214,150,${.06*str})`);g.addColorStop(1,'rgba(255,214,150,0)');
+    c.fillStyle=g;c.fillRect(0,0,W,H);
+    c.save();c.translate(sx,sy);c.rotate(T*.00003);c.globalCompositeOperation='lighter';
+    for(let i=0;i<14;i++){c.rotate(Math.PI*2/14);const L=R*1.1,wd=L*(.035+.025*Math.sin(T*.0005+i*1.7));
+      const gg=c.createLinearGradient(0,0,L,0);gg.addColorStop(0,`rgba(255,236,190,${.13*str})`);gg.addColorStop(1,'rgba(255,236,190,0)');
+      c.fillStyle=gg;c.beginPath();c.moveTo(0,0);c.lineTo(L,-wd);c.lineTo(L,wd);c.closePath();c.fill()}
+    c.restore();
+    // lóa sáng
+    c.save();c.globalCompositeOperation='lighter';[[.35,38,.05],[.55,18,.06],[.75,60,.03]].forEach(([f,r,a])=>{const fx=sx+(W*.3-sx)*f,fy=sy+(H*.7-sy)*f;const fg=c.createRadialGradient(fx,fy,0,fx,fy,r);fg.addColorStop(0,`rgba(255,240,200,${a*str})`);fg.addColorStop(1,'rgba(255,240,200,0)');c.fillStyle=fg;c.beginPath();c.arc(fx,fy,r,0,7);c.fill()});c.restore();
+    c.save();c.shadowColor='rgba(255,200,110,.9)';c.shadowBlur=50;c.fillStyle=`rgba(255,243,210,${.95*str})`;c.beginPath();c.arc(sx,sy,W<800?22:30,0,7);c.fill();c.restore();
+    c.fillStyle='rgba(255,230,170,1)';SC.motes.forEach(m=>{m.y+=m.vy*dt;m.x+=m.vx*dt+Math.sin(T*.001+m.ph)*.15*dt;if(m.y<-5){m.y=H+5;m.x=rnd(0,W)}
+      c.globalAlpha=.25+.35*(.5+.5*Math.sin(T*.002+m.ph));c.beginPath();c.arc(m.x,m.y,m.r,0,7);c.fill()});c.globalAlpha=1;
+  }
+  // sao, trăng
+  if(SC.stars.length){c.fillStyle='#fffbe8';SC.stars.forEach(st=>{c.globalAlpha=st.a*(.55+.45*Math.sin(T*st.sp+st.ph));c.beginPath();c.arc(st.x,st.y,st.r,0,7);c.fill()});c.globalAlpha=1;
+    if(s==='clear-night'||s==='partly-night'){
+      if(T>SC.nextShoot&&!SC.shoot){SC.shoot={x:rnd(W*.2,W*.9),y:rnd(0,H*.3),life:1}}
+      if(SC.shoot){const sh=SC.shoot;sh.x-=7*dt;sh.y+=3*dt;sh.life-=.018*dt;const gr=c.createLinearGradient(sh.x,sh.y,sh.x+90,sh.y-38);gr.addColorStop(0,`rgba(255,255,240,${Math.max(0,sh.life)})`);gr.addColorStop(1,'rgba(255,255,240,0)');
+        c.strokeStyle=gr;c.lineWidth=1.6;c.beginPath();c.moveTo(sh.x,sh.y);c.lineTo(sh.x+90,sh.y-38);c.stroke();if(sh.life<=0){SC.shoot=null;SC.nextShoot=T+rnd(6000,16000)}}}
+  }
+  if(!day&&(s==='clear-night'||s==='partly-night'||s==='cloudy-night')){const[mx,my]=sunPos();
+    const g=c.createRadialGradient(mx,my,0,mx,my,220);g.addColorStop(0,'rgba(240,232,200,.35)');g.addColorStop(1,'rgba(240,232,200,0)');c.fillStyle=g;c.beginPath();c.arc(mx,my,220,0,7);c.fill();
+    c.save();c.shadowColor='rgba(240,232,200,.8)';c.shadowBlur=30;c.fillStyle='#f3ebcf';c.beginPath();c.arc(mx,my,24,0,7);c.fill();c.restore();
+    c.fillStyle='rgba(200,190,160,.35)';[[-7,-5,5],[6,4,4],[-2,9,3]].forEach(([dx,dy,r])=>{c.beginPath();c.arc(mx+dx,my+dy,r,0,7);c.fill()})}
+  // mây
+  SC.clouds.forEach(cl=>{cl.x+=cl.v*dt;if(cl.x>W+20){cl.x=-cl.img.width-rnd(0,250);cl.y=rnd(-60,H*.25)}c.globalAlpha=cl.a;c.drawImage(cl.img,cl.x,cl.y)});c.globalAlpha=1;
+  // sương mù
+  SC.fog.forEach(f=>{f.x+=f.v*dt;if(f.x>W)f.x=-f.w;const g=c.createRadialGradient(f.x+f.w/2,f.y,0,f.x+f.w/2,f.y,f.w/2);const col=SC.dark?'150,155,160':'245,245,240';
+    g.addColorStop(0,`rgba(${col},${f.a})`);g.addColorStop(1,`rgba(${col},0)`);c.save();c.translate(f.x+f.w/2,f.y);c.scale(1,f.h/f.w);c.translate(-(f.x+f.w/2),-f.y);c.fillStyle=g;c.beginPath();c.arc(f.x+f.w/2,f.y,f.w/2,0,7);c.fill();c.restore()});
+  // mưa
+  if(SC.rain.length){const sl=SC.slant;c.strokeStyle=SC.dark||!day?'rgba(205,218,235,.38)':'rgba(70,92,120,.33)';c.lineWidth=1.1;c.beginPath();
+    SC.rain.forEach(d=>{d.y+=d.v*dt;d.x+=d.v*sl*dt;if(d.y>H+30)Object.assign(d,newDrop(false));c.moveTo(d.x,d.y);c.lineTo(d.x-d.l*sl,d.y-d.l)});c.stroke();
+    SC.glass.forEach(g=>{if(Math.random()<.004*dt)g.v=rnd(.6,2.4);g.y+=g.v*dt;g.v*=Math.pow(.97,dt);if(g.y>H+10){g.y=-10;g.x=rnd(0,W)}
+      const gr=c.createRadialGradient(g.x-g.r*.3,g.y-g.r*.3,0,g.x,g.y,g.r);gr.addColorStop(0,'rgba(255,255,255,.55)');gr.addColorStop(.6,'rgba(200,215,230,.18)');gr.addColorStop(1,'rgba(120,140,160,.25)');
+      c.fillStyle=gr;c.beginPath();c.ellipse(g.x,g.y,g.r,g.r*1.15,0,0,7);c.fill()})}
+  // tuyết
+  if(SC.snow.length){c.fillStyle=SC.dark?'rgba(240,244,250,.85)':'rgba(255,255,255,.95)';SC.snow.forEach(f=>{f.y+=f.vy*dt;f.x+=Math.sin(T*.001*f.sw+f.ph)*.5*dt;if(f.y>H+5){f.y=-5;f.x=rnd(0,W)}c.beginPath();c.arc(f.x,f.y,f.r,0,7);c.fill()})}
+  // sấm chớp
+  if(s==='storm'){
+    if(T>SC.nextBolt){SC.flash=1;SC.bolt=mkBolt();SC.nextBolt=T+rnd(5000,13000);SC.flick=T+140}
+    if(SC.flick&&T>SC.flick){SC.flash=.85;SC.flick=0}
+    if(SC.flash>.02){c.fillStyle=`rgba(235,240,255,${SC.flash*.32})`;c.fillRect(0,0,W,H);
+      if(SC.bolt&&SC.flash>.25){c.save();c.strokeStyle=`rgba(255,255,240,${SC.flash})`;c.lineWidth=2.4;c.shadowColor='rgba(210,225,255,1)';c.shadowBlur=22;c.lineJoin='round';
+        SC.bolt.forEach((p,bi)=>{c.lineWidth=bi?1.3:2.4;c.beginPath();c.moveTo(p[0][0],p[0][1]);p.forEach(q=>c.lineTo(q[0],q[1]));c.stroke()});c.restore()}
+      SC.flash*=Math.pow(.86,dt)}
+  }
+}
+function scLoop(ts){if(!SC.on)return;SC.raf=requestAnimationFrame(scLoop);const dt=SC.lt?Math.min(3,(ts-SC.lt)/16.67):1;SC.lt=ts;scDraw(dt)}
+const TINTS={
+  'clear-day':'linear-gradient(180deg,rgba(255,206,130,.42),rgba(255,226,180,.16) 38%,rgba(255,226,180,0) 70%)',
+  'partly-day':'linear-gradient(180deg,rgba(140,185,230,.42),rgba(190,215,240,.16) 40%,rgba(190,215,240,0) 72%)',
+  'cloudy-day':'linear-gradient(180deg,rgba(140,155,175,.45),rgba(170,180,195,.18) 45%,rgba(170,180,195,0) 80%)',
+  'rain':'linear-gradient(180deg,rgba(95,112,135,.55),rgba(120,135,155,.25) 50%,rgba(120,135,155,.08))',
+  'storm':'linear-gradient(180deg,rgba(45,52,70,.7),rgba(70,78,98,.35) 55%,rgba(70,78,98,.12))',
+  'fog':'linear-gradient(180deg,rgba(215,215,210,.55),rgba(215,215,210,.3) 60%,rgba(215,215,210,.15))',
+  'snow':'linear-gradient(180deg,rgba(190,205,225,.5),rgba(220,230,240,.2) 50%,rgba(220,230,240,0) 85%)',
+  'night':'linear-gradient(180deg,rgba(14,22,48,.85),rgba(28,38,72,.45) 45%,rgba(28,38,72,0) 85%)',
+  'rain-night':'linear-gradient(180deg,rgba(18,24,38,.8),rgba(30,38,55,.4) 50%,rgba(30,38,55,.12))'
+};
+let tintFlip=false;
+function skyTint(cfg){
+  const key=!cfg?null:(!cfg.day&&(cfg.s==='rain'||cfg.s==='storm'))?'rain-night':(!cfg.day&&cfg.s.includes('night'))?'night':(!cfg.day&&cfg.s==='snow')?'night':cfg.s;
+  const a=$('#skyA'),b=$('#skyB');if(!a)return;const[on,off]=tintFlip?[a,b]:[b,a];tintFlip=!tintFlip;
+  if(key){on.style.background=TINTS[key];on.style.opacity=1}else on.style.opacity=0;off.style.opacity=0;
+}
+function sceneSet(cfg){
+  const same=SC.cfg&&SC.cfg.s===cfg.s&&SC.cfg.k===cfg.k&&SC.cfg.day===cfg.day;
+  SC.cfg=cfg;document.documentElement.classList.add('wx-on');
+  document.documentElement.classList.toggle('wx-dim',!cfg.day||cfg.s==='storm');if(!same)skyTint(cfg);
+  if(!SC.ctx)scResize();if(!same)scBuild();
+  cancelAnimationFrame(SC.raf);SC.lt=0;
+  if(RM){SC.on=false;scDraw(0)}else{SC.on=true;SC.raf=requestAnimationFrame(scLoop)}
+}
+function sceneOff(){SC.on=false;cancelAnimationFrame(SC.raf);if(SC.ctx)SC.ctx.clearRect(0,0,SC.w,SC.h);SC.cfg=null;skyTint(null);document.documentElement.classList.remove('wx-on','wx-dim')}
+let scRT;addEventListener('resize',()=>{clearTimeout(scRT);scRT=setTimeout(()=>{scResize();if(SC.cfg){scBuild();if(RM)scDraw(0)}},200)});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){SC.on=false;cancelAnimationFrame(SC.raf)}else if(SC.cfg&&!RM&&!SC.on){SC.on=true;SC.lt=0;SC.raf=requestAnimationFrame(scLoop)}});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(SC.cfg)scBuild()});
+
+/* ----- cài đặt thời tiết ----- */
+function wxSettingsHTML(){
+  const loc=wxLoc()||WX_DEFAULT,on=wxEnabled();
+  return`<div class="seg" style="margin-bottom:14px"><button class="chip ${on?'on':''}" data-wxon="1">Bật</button><button class="chip ${on?'':'on'}" data-wxon="0">Tắt</button></div>
+    <label class="f" style="margin-top:0">Vị trí <span class="hint">— hiện tại: <b>${esc(loc.name)}</b>${wxLoc()?'':' (mặc định)'}</span></label>
+    <div class="row" style="flex-wrap:nowrap"><input type="search" id="wxQ" placeholder="Tìm thành phố, VD: Đà Lạt"><button class="btn" id="wxFind" style="flex:none">Tìm</button></div>
+    <div id="wxRes" style="margin-top:8px"></div>
+    <button class="btn ghost" id="wxGeo" style="padding-left:0;color:var(--accent)">⌖ Dùng vị trí hiện tại của máy</button>
+    <label class="f">Xem thử hiệu ứng</label>
+    <div class="seg">${PREVIEWS.map(([k,n])=>`<button class="chip ${(WXD.preview||'')===k?'on':''}" data-pv="${k}">${n}</button>`).join('')}</div>
+    <div class="row" style="margin-top:14px"><button class="btn" id="wxNow">Cập nhật thời tiết</button>
+      <span class="muted" style="font-size:13px">${WXD.data?'Cập nhật lúc '+fmtTime(JSON.parse(localStorage.getItem(WXKEY)||'{}').at||Date.now()):WXD.err||''}</span></div>
+    <p class="muted" style="font-size:13px;margin-bottom:0">Dữ liệu từ Open-Meteo (miễn phí). App chỉ gửi toạ độ thành phố để lấy dự báo — nhật ký của bạn không rời khỏi máy.</p>`;
+}
+function bindWxSettings(box,rerender){
+  box.querySelectorAll('[data-wxon]').forEach(b=>b.onclick=()=>{wxSetEnabled(b.dataset.wxon==='1');if(wxEnabled())wxRefresh(false);else sceneOff();rerender()});
+  box.querySelectorAll('[data-pv]').forEach(b=>b.onclick=()=>{WXD.preview=b.dataset.pv||null;if(!wxEnabled())wxSetEnabled(true);wxApply();rerender()});
+  const pick=async l=>{wxSetLoc(l);WXD.data=null;toast(`Đã chọn ${l.name}`);rerender();await wxRefresh(true);rerender()};
+  const find=async()=>{const q=$('#wxQ').value.trim();if(!q)return;const R=$('#wxRes');R.innerHTML='<span class="muted">Đang tìm…</span>';
+    try{const rs=await wxSearch(q);R.innerHTML=rs.length?rs.map((r,i)=>`<button class="memory" data-i="${i}"><small>${esc(r.sub)}</small><span>${esc(r.name)}</span></button>`).join(''):'<span class="muted">Không tìm thấy địa điểm này.</span>';
+      R.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>pick(rs[+b.dataset.i]))}catch(e){R.innerHTML='<span class="muted">Không tìm được — kiểm tra kết nối mạng.</span>'}};
+  $('#wxFind').onclick=find;$('#wxQ').onkeydown=e=>{if(e.key==='Enter')find()};
+  $('#wxGeo').onclick=async()=>{toast('Đang lấy vị trí…');try{pick(await wxGeo())}catch(e){toast('Không lấy được vị trí — hãy tìm theo tên thành phố')}};
+  $('#wxNow').onclick=async()=>{await wxRefresh(true);rerender();toast(WXD.err||'Đã cập nhật thời tiết')};
+}
+
+/* ---------- Giao diện sáng/tối ---------- */
+function getTheme(){try{return localStorage.getItem(THEME)}catch(e){return null}}
+function setTheme(t){try{t==='auto'?localStorage.removeItem(THEME):localStorage.setItem(THEME,t)}catch(e){}applyTheme();if(SC.cfg){scBuild();if(RM)scDraw(0)}}
+function applyTheme(){const t=getTheme();t&&t!=='auto'?document.documentElement.setAttribute('data-theme',t):document.documentElement.removeAttribute('data-theme')}
+$('#themeBtn').onclick=()=>{const dark=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()==='#1b1a18';setTheme(dark?'light':'dark')};
+applyTheme();updateLockBtn();
+$('#lockBtn').onclick=lockNow;
+if(getPin())lockNow();
+render();
+wxApply();if(wxEnabled())wxRefresh(false);
+abInit().then(()=>{if(AB.status!=='off'&&(view==='home'||view==='settings'))render()});
+</script>
+</body>
+</html>
