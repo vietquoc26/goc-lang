@@ -6,7 +6,7 @@ service cloud.firestore {
     function allowed() {
       return request.auth != null
         && request.auth.token.email_verified == true
-        && request.auth.token.email in ['vincenthoclaudepro@gmail.com', 'TAI-KHOAN-THU-HAI@gmail.com'];
+        && request.auth.token.email in ['vietquoc150799@gmail.com', 'kieulinh0309@gmail.com'];
     }
 
     // Mỗi tài khoản chỉ đọc/ghi được nhật ký của chính mình
