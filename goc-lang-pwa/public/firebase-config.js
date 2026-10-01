@@ -11,7 +11,7 @@ window.GOCLANG_CONFIG = {
     appId: "1:383118532979:web:a8961ec8bab57cf6ed2506"         // giữ nguyên giá trị của bạn
   },
   googleClientId: "",                        // điền sau (mục 5)
-  allowedEmails: ["vietquoc150799@gmail.com", "email-nguoi-kia@gmail.com"],
+  allowedEmails: ["vietquoc150799@gmail.com", "kieulinh0309@gmail.com"],
   firebaseVersion: "12.6.0"
 };
   // OAuth Client ID loại "Web application" (Google Cloud Console → APIs & Services → Credentials)
