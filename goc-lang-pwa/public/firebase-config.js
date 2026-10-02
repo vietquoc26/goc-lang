@@ -3,22 +3,14 @@
     Để trống "firebase" → app chạy chế độ ngoại tuyến (không đăng nhập, không đồng bộ). */
 window.GOCLANG_CONFIG = {
   firebase: {
-    apiKey: "AIzaSyA1qdIlN4kddtmSg6RfLm20uzL43Z9YvXA",                      // giữ nguyên giá trị của bạn
+    apiKey: "AIzaSyA1qdIlN4kddtmSg6RfLm20uzL43Z9YvXA",
     authDomain: "goc-c0274.web.app",
     projectId: "goc-c0274",
     storageBucket: "goc-c0274.firebasestorage.app",
     messagingSenderId: "383118532979",
-    appId: "1:383118532979:web:a8961ec8bab57cf6ed2506"         // giữ nguyên giá trị của bạn
+    appId: "1:383118532979:web:a8961ec8bab57cf6ed2506"
   },
-  googleClientId: "383118532979-lmg3orf1c3c4i1jborkc5g9hd4hmshfs.apps.googleusercontent.com",                        // điền sau (mục 5)
+  googleClientId: "383118532979-lmg3orf1c3c4i1jborkc5g9hd4hmshfs.apps.googleusercontent.com",
   allowedEmails: ["vietquoc150799@gmail.com", "kieulinh0309@gmail.com"],
-  firebaseVersion: "12.6.0"
-};
-  // OAuth Client ID loại "Web application" (Google Cloud Console → APIs & Services → Credentials)
-  // Dùng cho nút "Sao lưu lên Google Drive". Để trống thì ẩn tính năng này.
-  googleClientId: "",
-  // Chỉ những email này được dùng app. Để mảng rỗng [] = ai có tài khoản Google cũng vào được.
-  allowedEmails: ["vietquoc150799@gmail.com", "kieulinh0309@gmail.com"],
-  // Phiên bản thư viện Firebase
   firebaseVersion: "12.6.0"
 };
